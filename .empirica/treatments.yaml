@@ -1,3 +1,18 @@
+# factors:
+#   - desc: playerCount determines the number of Players are in a Game.
+#     name: playerCount
+#     values:
+#       - value: 1
+#   - desc: numSwipes determines the number of Swipes in a Game.
+#     name: numSwipes
+#     values:
+#       - value: 10
+# treatments:
+#   - desc: "Random Recommendations"
+#     name: Random
+#     factors:
+#       playerCount: 1
+#       numSwipes : 10
 factors:
   - desc: playerCount determines the number of Players are in a Game.
     name: playerCount
