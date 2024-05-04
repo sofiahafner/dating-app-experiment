@@ -1,0 +1,9 @@
+name = "dating-app-experiment"
+
+[tajriba.auth]
+srtoken = "RsAxEwdALeYRltGU"
+
+[[tajriba.auth.users]]
+name = "Admin"
+username = "admin"
+password = "mldhxmTE"
