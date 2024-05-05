@@ -8,7 +8,7 @@ import { Player, usePlayer } from '@empirica/core/player/classic/react';
 export function SwipeProfile() {
     console.log("in SwipeProfile")
     const player = usePlayer()
-    
+
     const handleAccept = () => {
       console.log('Profile Accepted');
       player.round.set("decision", "accepted")
@@ -23,7 +23,7 @@ export function SwipeProfile() {
   
     return (
       <div className="profile-container" style={{ textAlign: 'center', padding: '20px' }}>
-        <img src="https://upload.wikimedia.org/wikipedia/en/0/06/Promising_Young_Woman_poster.jpg" alt="Profile Pic" style={{ width: '200px', height: '200px', borderRadius: '50%' }} />
+        <img src="https://upload.wikimedia.org/wikipedia/en/0/06/Promising_Young_Woman_poster.jpg" alt="Profile Pic" style={{ width: '200px', height: '200px' }} />
         <div className="profile-info" style={{ margin: '20px' }}>
           <p><strong>Name:</strong> Sofia Hafner </p>
           <p><strong>Age:</strong> 23</p>

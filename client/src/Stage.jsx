@@ -31,7 +31,7 @@ export function Stage() {
   switch (stage.get("name")){
     case "swipeProfile":
       return <SwipeProfile/>
-    case "result":
+    case "Results":
         return <Results/>
     default:
       console.log("AAA")

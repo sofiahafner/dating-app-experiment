@@ -27,8 +27,10 @@ treatments:
   - desc: "Single-player Game"
     factors:
       playerCount: 1
+      numSwipes : 5
     name: Solo
   - desc: "Two-player Game"
     factors:
       playerCount: 2
+      numSwipes : 3
     name: Two Players
