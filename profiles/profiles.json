@@ -1,0 +1,23 @@
+[
+  {
+    "profile_ID": "1",
+    "name": "Rue",
+    "age": "21",
+    "hobby1": "dancing",
+    "hobby2": "swimming"
+  },
+  {
+    "profile_ID": "2",
+    "name": "Alex",
+    "age": "25",
+    "hobby1": "hiking",
+    "hobby2": "musik"
+  },
+  {
+    "profile_ID": "2",
+    "name": "Nat",
+    "age": "50",
+    "hobby1": "musik",
+    "hobby2": "dancing"
+  }
+]
