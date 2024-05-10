@@ -4,6 +4,9 @@ export const Empirica = new ClassicListenersCollector();
 Empirica.onGameStart(({ game }) => {
   const treatment = game.get("treatment");
   const { numSwipes } = treatment; // Destructuring numRounds from treatment
+  // console.log(numSwipes)
+  // console.log(treatment)
+  // const numSwipes = 5
 
   // for (const player of players){
   //   const ownProfileID = 1;
@@ -42,35 +45,54 @@ Empirica.onRoundStart(({ round }) => {
   //   console.log("callbacks ownProfileID")
   //   console.log(ownProfileID)
   // }
-  console.log("in onRoundStart")
 });
 
 Empirica.onStageStart(({ stage }) => {
-  console.log("in onStageStart")
 
 });
 
-Empirica.onStageEnded(({ stage }) => {
-  if (stage.get("name") == "Results"){
-    const players = stage.currentGame.players
-    for (const player of players){
-      const opponent = players.filter((p) => p.id !== player.id)[0]
-      const player_decision = player.round.get("decision")
-      const opponent_decision = opponent.round.get("decision")
-      let match
-      if (player_decision === "accepted" && opponent_decision === "accepted"){
-        match = 1
-      } else{
-        match = 0
-      }
-      player.round.set("match", match)
-      const currentMatches = player.get("score")||0
-      player.set("score", match + currentMatches)
+// Empirica.onStageEnded(({ stage }) => {
+//   if (stage.get("name") == "Results"){
+//     const players = stage.currentGame.players
+//     for (const player of players){
+//       player_opponentID = player.round.get("opponentId")
+//       const currentOpponentIds = player.get("opponentIDs")||[]
+//       player.set("opponentIDs", currentOpponentIds.push(player_opponentID))
      
-    }
+//     }
 
+//   }
+// });
+
+// Empirica.onStageEnded(({ stage }) => {
+//   if (stage.get("name") === "Results") {
+//     const players = stage.game.players; // Ensure you access players from the correct property
+//     for (const player of players) {
+//       const player_opponentID = player.round.get("opponentId"); // Declare this variable properly
+//       const currentOpponentIds = player.get("opponentIDs") || []; // Get existing opponent IDs or default to an empty array
+      
+//       // Push the new opponent ID to the array
+//       currentOpponentIds.push(player_opponentID);
+      
+//       // Save the updated array back to the player's state
+//       player.set("opponentIDs", currentOpponentIds);
+//     }
+//   }
+// });
+
+Empirica.onStageEnded(({ stage}) => {
+  if (stage.get("name") === "Results") {
+    const players = stage.currentGame.players
+
+    for (const player of players) {
+      const player_opponentID = player.round.get("opponentId");
+      const currentOpponentIds = player.get("opponentIDs") || [];
+      player.set("opponentIDs", [...currentOpponentIds, player_opponentID]);
+    }
   }
 });
+
+
 
 Empirica.onRoundEnded(({ round }) => {});
 

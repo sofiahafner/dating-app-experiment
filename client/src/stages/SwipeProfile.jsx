@@ -27,20 +27,55 @@ function findProfileById(profileId) {
     return profile ? profile.hobby2 : "Profile not found";
   }
 
-  function getRandomRecommendation(own_profile_id) {
-    // Filter out the own profile
-    const otherProfiles = profiles.filter(p => parseInt(p.profile_ID) !== parseInt(own_profile_id));
-    
-    // Check if there are other profiles available
+  function getAllOpponentIDs() {
+    const player = usePlayer()
+    const opponentIDs = [];
+    player.rounds.forEach(round => {
+        const opponentId = round.get(`opponentId`);
+        if (opponentId) {
+            opponentIDs.push(opponentId);
+        }
+    });
+
+    return opponentIDs;
+}
+
+
+// function getRandomRecommendation(player, profiles) {
+//     const pastOpponentIDs = player.get("opponentIds")
+//     const otherProfiles = profiles.filter(p => 
+//       parseInt(p.profile_ID) !== parseInt(player.profile_ID) && 
+//       !pastOpponentIDs.includes(parseInt(p.profile_ID))
+//     );
+  
+//     if (otherProfiles.length === 0) {
+//       return null; 
+//     }
+
+//     const randomIndex = Math.floor(Math.random() * otherProfiles.length);
+//     const randomProfile = otherProfiles[randomIndex];
+  
+//     return randomProfile.profile_ID;
+//   }
+  
+function getRandomRecommendation(player, ownProfileID) {
+    const pastOpponentIDs = (player.get("opponentIDs") || []).map(id => parseInt(id));
+
+    const otherProfiles = profiles.filter(p => {
+        const profileID = parseInt(p.profile_ID);
+        return profileID !== parseInt(ownProfileID) && !pastOpponentIDs.includes(profileID);
+    });
+
+    console.log("Filtered Other Profiles:", otherProfiles.map(p => p.profile_ID));
+
     if (otherProfiles.length === 0) {
-        return null; // or handle this scenario appropriately
+        console.log("No eligible profiles found.");
+        return null; 
     }
 
-    // Select a random profile from the remaining profiles
     const randomIndex = Math.floor(Math.random() * otherProfiles.length);
     const randomProfile = otherProfiles[randomIndex];
 
-    // Return the profile_ID of the selected profile
     return randomProfile.profile_ID;
 }
 
@@ -51,11 +86,13 @@ export function SwipeProfile() {
 
     const handleAccept = () => {
       player.round.set("decision", "accepted")
+      player.round.set("opponentId", other_profile_id)
       player.stage.set("submit", true)
     };
   
     const handleReject = () => {
       player.round.set("decision", "rejected")
+      player.round.set("opponentId", other_profile_id)
       player.stage.set("submit", true)
     };
 
@@ -65,11 +102,9 @@ export function SwipeProfile() {
     const own_profile_hobby1 = getHobby1(own_profile_id)
     const own_profile_hobby2 = getHobby2(own_profile_id)
 
-    // const profile = findProfileById(1);
-    // console.log(profile);
-    const link_to_own_profile_picture = "https://raw.githubusercontent.com/sofiahafner/dating-app-experiment/main/profiles/pictures/"+ own_profile_id +".webp"
+    const link_to_own_profile_picture = "https://raw.githubusercontent.com/sofiahafner/dating-app-experiment/main/profiles/pictures/"+ own_profile_id +".png"
 
-    const other_profile_id = getRandomRecommendation(own_profile_id)
+    const other_profile_id = getRandomRecommendation(player, own_profile_id)
 
     const other_profile_name = getName(other_profile_id)
     const other_profile_age = getAge(other_profile_id)
@@ -78,28 +113,11 @@ export function SwipeProfile() {
 
     // const profile = findProfileById(1);
     // console.log(profile);
-    const link_to_other_profile_picture = "https://raw.githubusercontent.com/sofiahafner/dating-app-experiment/main/profiles/pictures/"+ other_profile_id +".webp"
+    const link_to_other_profile_picture = "https://raw.githubusercontent.com/sofiahafner/dating-app-experiment/main/profiles/pictures/"+ other_profile_id +".png"
 
 
   
     return (
-
-    //   <div className="profile-container" style={{ textAlign: 'center', padding: '20px' }}>
-    //     <img src={link_to_profile_picture} alt="Profile Pic" style={{ width: '200px', height: '200px' }} />
-    //     <div className="profile-info" style={{ margin: '20px' }}>
-    //       <p><strong>Name:</strong> {own_profile_name} </p>
-    //       <p><strong>Age:</strong> {own_profile_age} </p>
-    //       <p><strong>Hobbies:</strong>{own_profile_hobby1}, {own_profile_hobby2}</p>
-    //     </div>
-    //     <div>
-    //       <button onClick={handleAccept} style={{ backgroundColor: 'green', color: 'white', padding: '10px 20px', marginRight: '10px', border: 'none', borderRadius: '5px' }}>
-    //         &#10003; Accept
-    //       </button>
-    //       <button onClick={handleReject} style={{ backgroundColor: 'red', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px' }}>
-    //         &#10007; Reject
-    //       </button>
-    //     </div>
-    //   </div>
 
 <div style={{width: '100%', height: '100%', position: 'relative', background: 'white'}}>
     <div style={{width: 391, height: 694, left: 922, top: 49, position: 'absolute'}}>

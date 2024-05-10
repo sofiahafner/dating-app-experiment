@@ -23,11 +23,20 @@ factors:
       - value: 5
       - value: 8
       - value: 13
+  - desc: numSwipes determines the number of Swipes per Game.
+    name: numSwipes
+    values:
+      - value: 1
+      - value: 2
+      - value: 3
+      - value: 5
+      - value: 8
+      - value: 13
 treatments:
   - desc: "Single-player Game"
     factors:
       playerCount: 1
-      numSwipes : 5
+      numSwipes : 8
     name: Solo
   - desc: "Two-player Game"
     factors:
