@@ -70,6 +70,7 @@ export function SwipeProfile() {
     const link_to_own_profile_picture = "https://raw.githubusercontent.com/sofiahafner/dating-app-experiment/main/profiles/pictures/"+ own_profile_id +".webp"
 
     const other_profile_id = getRandomRecommendation(own_profile_id)
+
     const other_profile_name = getName(other_profile_id)
     const other_profile_age = getAge(other_profile_id)
     const other_profile_hobby1 = getHobby1(other_profile_id)
@@ -106,15 +107,15 @@ export function SwipeProfile() {
         <div style={{left: 39, top: 544, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '700', wordWrap: 'break-word'}}>I am looking for someone who:</div>
         <div style={{left: 40, top: 478, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '700', wordWrap: 'break-word'}}>On a typical Sunday I:</div>
         <div style={{width: 312, left: 40, top: 628, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>I listen to rock music to unwind after a day of outdoor adventures.</div>
-        <div style={{left: 168, top: 376, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{own_profile_name}</div>
-        <div style={{left: 168, top: 400, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{own_profile_age}</div>
+        <div style={{left: 168, top: 376, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{other_profile_name}</div>
+        <div style={{left: 168, top: 400, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{other_profile_age}</div>
         <div style={{left: 45, top: 400, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '700', wordWrap: 'break-word'}}>Age:</div>
         <div style={{left: 44, top: 380, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '700', wordWrap: 'break-word'}}>Name:</div>
-        <div style={{left: 165, top: 421, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{own_profile_hobby1}, {own_profile_hobby2}</div>
+        <div style={{left: 165, top: 421, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{other_profile_hobby1}, {other_profile_hobby2}</div>
         <div style={{width: 313, left: 39, top: 496, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Enjoy outdoor activities like swimming, fishing, or climbing</div>
         <div style={{width: 313, left: 39, top: 562, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Shares my love for adventure and outdoor pursuits.</div>
         <div style={{left: 46, top: 421, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '700', wordWrap: 'break-word'}}>Hobbies:</div>
-        <img style={{width: 308, height: 334, left: 44, top: 30, position: 'absolute', borderRadius: 30}} src={link_to_own_profile_picture}  />
+        <img style={{width: 308, height: 334, left: 44, top: 30, position: 'absolute', borderRadius: 30}} src={link_to_other_profile_picture}  />
         <div style={{left: 39, top: 610, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '700', wordWrap: 'break-word'}}>A fun fact about me:</div>
     </div>
     <button onClick={handleAccept} style={{ border: 'none', background: 'none', padding: 0, position: 'absolute', left: 1149, top: 780 }}>
@@ -130,16 +131,16 @@ export function SwipeProfile() {
             <div style={{left: 39, top: 544, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '700', wordWrap: 'break-word'}}>I am looking for someone who:</div>
             <div style={{left: 40, top: 478, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '700', wordWrap: 'break-word'}}>On a typical Sunday I:</div>
             <div style={{width: 309, left: 40, top: 628, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>I listen to rock music to unwind after a day of outdoor adventures.</div>
-            <div style={{left: 168, top: 376, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{other_profile_name}</div>
-            <div style={{left: 168, top: 400, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{other_profile_age}</div>
+            <div style={{left: 168, top: 376, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{own_profile_name}</div>
+            <div style={{left: 168, top: 400, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{own_profile_age}</div>
             <div style={{left: 45, top: 400, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '700', wordWrap: 'break-word'}}>Age:</div>
             <div style={{left: 44, top: 380, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '700', wordWrap: 'break-word'}}>Name:</div>
-            <div style={{left: 165, top: 421, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{other_profile_hobby1}, {other_profile_hobby2}</div>
+            <div style={{left: 165, top: 421, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{own_profile_hobby1}, {own_profile_hobby2}</div>
             <div style={{width: 310, left: 39, top: 496, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Enjoy outdoor activities like swimming, fishing, or climbing</div>
             <div style={{width: 310, left: 39, top: 562, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Shares my love for adventure and outdoor pursuits.</div>
             <div style={{left: 46, top: 421, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '700', wordWrap: 'break-word'}}>Hobbies:</div>
             <div style={{left: 39, top: 610, position: 'absolute', color: 'black', fontSize: 15, fontFamily: 'Inter', fontWeight: '700', wordWrap: 'break-word'}}>A fun fact about me:</div>
-            <img style={{width: 308, height: 334, left: 41, top: 30, position: 'absolute', borderRadius: 30}} src={link_to_other_profile_picture}  />
+            <img style={{width: 308, height: 334, left: 41, top: 30, position: 'absolute', borderRadius: 30}} src={link_to_own_profile_picture}  />
         </div>
         <div style={{width: 367, height: 70, left: 91, top: 74, position: 'absolute', color: '#DADADA', fontSize: 15, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Click on the heart if you think your character and the character on the right would be a match. Otherwise, click on the cross.</div>
         <div style={{left: 92, top: 191, position: 'absolute', color: '#DADADA', fontSize: 15, fontFamily: 'Inter', fontWeight: '700', wordWrap: 'break-word'}}>This is your character:</div>
