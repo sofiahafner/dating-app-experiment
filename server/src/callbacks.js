@@ -12,6 +12,11 @@ Empirica.onGameStart(({ game }) => {
   //   const ownProfileID = 1;
   //   player.round.set("ownProfileID", ownProfileID)
   // }
+  const pre_rounds = game.addRound({
+    name : 'preRounds'
+  })
+  pre_rounds.addStage({name:"pickCharacterTraits", duration: 30})
+
   for (let index = 0; index < numSwipes; index++) {
     const round = game.addRound({
       name: `Round ${index + 1}`,
@@ -29,12 +34,15 @@ Empirica.onGameStart(({ game }) => {
 
 
 Empirica.onRoundStart(({ round }) => {
-  const players = round.currentGame.players
-  let profile_id = 1
-  for (const player of players){
-    player.round.set('ownProfileID', profile_id)
-    profile_id = profile_id + 1
+  if (round.get("name") !== "preRounds") {
+    const players = round.currentGame.players
+    let profile_id = 1
+    for (const player of players){
+      player.round.set('ownProfileID', profile_id)
+      profile_id = profile_id + 1
+    }
   }
+ 
   // const players = stage.currentGame.players
   // const allProfileIDs = [1,2,3,4]
   

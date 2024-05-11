@@ -9,6 +9,7 @@ import React from "react";
 
 import { SwipeProfile } from "./stages/SwipeProfile.jsx";
 import { Results } from "./stages/Results.jsx";
+import { PickCharacterTraits } from "./stages/PickCharacterTraits.jsx";
 
 export function Stage() {
   const player = usePlayer();
@@ -29,6 +30,8 @@ export function Stage() {
   }
 
   switch (stage.get("name")){
+    case "pickCharacterTraits":
+      return <PickCharacterTraits/>
     case "swipeProfile":
       return <SwipeProfile/>
     case "Results":
