@@ -10,6 +10,7 @@ import React from "react";
 import { SwipeProfile } from "./stages/SwipeProfile.jsx";
 import { Results } from "./stages/Results.jsx";
 import { PickCharacterTraits } from "./stages/PickCharacterTraits.jsx";
+import { ChooseCharacter } from "./stages/ChooseCharacter.jsx";
 
 export function Stage() {
   const player = usePlayer();
@@ -34,8 +35,10 @@ export function Stage() {
       return <PickCharacterTraits/>
     case "swipeProfile":
       return <SwipeProfile/>
-    case "Results":
-        return <Results/>
+    case "chooseCharacter":
+      return <ChooseCharacter/>
+    // case "Results":
+    //     return <Results/>
     default:
       console.log("AAA")
       return <p>Loading...</p>
