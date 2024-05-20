@@ -14,7 +14,6 @@ Empirica.onGameStart(({ game }) => {
   for (let index = 0; index < numSwipes; index++) {
     const round = game.addRound({
       name: `Round ${index + 1}`,
-      // name: `Round`,
     });
 
     round.addStage({name: "swipeProfile", duration: 10});
@@ -22,9 +21,6 @@ Empirica.onGameStart(({ game }) => {
   }
   
 });
-
-
-
 
 
 Empirica.onRoundStart(({ round }) => {
@@ -46,7 +42,7 @@ Empirica.onStageStart(({ stage }) => {
 
 
 Empirica.onStageEnded(({ stage}) => {
-  if (stage.get("name") === "Results") {
+  if (stage.get("name") === "swipeProfile") {
     const players = stage.currentGame.players
 
     for (const player of players) {
@@ -55,11 +51,25 @@ Empirica.onStageEnded(({ stage}) => {
       player.set("opponentIDs", [...currentOpponentIds, player_opponentID]);
     }
   }
+
+    if (stage.get("name") === "chooseCharacter") {
+      const players = stage.currentGame.players
+  
+      for (const player of players) {
+        const playerchosenProfile = player.round.get("chosenProfile");
+        // const currentOpponentIds = player.get("opponentIDs") || [];
+        player.set("chosenProfile", playerchosenProfile);
+      }
+
+    // chooseCharacter
+  }
 });
 
 
 
-Empirica.onRoundEnded(({ round }) => {});
+Empirica.onRoundEnded(({ round }) => {
+
+});
 
 Empirica.onGameEnded(({ game }) => {});
 

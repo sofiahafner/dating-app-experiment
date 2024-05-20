@@ -27,6 +27,8 @@ export function getHobby2(profileId) {
 
 export function getRandomRecommendation(player, ownProfileID) {
     const pastOpponentIDs = (player.get("opponentIDs") || []).map(id => parseInt(id));
+    console.log("utils getRandomRecommendation pastOpponentIDs")
+    console.log(pastOpponentIDs)
 
     const otherProfiles = profiles.filter(p => {
         const profileID = parseInt(p.profile_ID);

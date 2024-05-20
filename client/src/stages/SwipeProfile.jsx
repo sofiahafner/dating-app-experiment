@@ -18,7 +18,8 @@ export function SwipeProfile() {
         player.stage.set("submit", true);
     };
 
-    const ownProfileId = player.round.get("ownProfileID");
+    // const ownProfileId = player.round.get("ownProfileID");
+    const ownProfileId = player.get("chosenProfile");
     const linkToOwnProfilePicture = `https://raw.githubusercontent.com/sofiahafner/dating-app-experiment/main/profiles/pictures/${ownProfileId}.png`;
 
     const otherProfileId = getRandomRecommendation(player, ownProfileId);

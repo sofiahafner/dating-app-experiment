@@ -7,7 +7,9 @@ export function ChooseCharacter() {
     const player = usePlayer();
 
     const handlePlayCharacter = (profileId) => {
-        player.set('chosenProfile', profileId);
+        player.round.set('chosenProfile', parseInt(profileId));
+        console.log(" of chosen profile")
+        console.log(profileId)
         player.stage.set("submit", true);
     };
 
