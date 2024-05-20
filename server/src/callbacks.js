@@ -8,8 +8,8 @@ Empirica.onGameStart(({ game }) => {
   const pre_rounds = game.addRound({
     name : 'preRounds'
   })
-  pre_rounds.addStage({name:"pickCharacterTraits", duration: 30})
-  pre_rounds.addStage({name:"chooseCharacter", duration: 30})
+  pre_rounds.addStage({name:"pickCharacterTraits", duration: 3000})
+  pre_rounds.addStage({name:"chooseCharacter", duration: 3000})
 
   for (let index = 0; index < numSwipes; index++) {
     const round = game.addRound({
