@@ -36,7 +36,7 @@ treatments:
   - desc: "Single-player Game"
     factors:
       playerCount: 1
-      numSwipes : 8
+      numSwipes : 15
     name: Solo
   - desc: "Two-player Game"
     factors:
