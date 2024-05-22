@@ -4,7 +4,8 @@ import profiles from '../data/peep_profiles.json';
 import Peep from 'react-peeps';
 // import Peep from 'react-peeps';
 import  { useState, useEffect} from 'react';
-import { Effigy } from "@opeepsfun/open-peeps";
+import { Effigy } from '../../client/open-peeps/lib/Effigy.tsx';
+// import { Effigy } from "../data/open-peeps/lib/Effigy.tsx";
 
 export function findProfileById(profileId) {
     return profiles.find(p => parseInt(p.profile_ID) === parseInt(profileId));
@@ -201,11 +202,11 @@ export function createProfile(profileId) {
     const age = getAge(profileId);
     const hobby1 = getHobby1(profileId);
     const hobby2 = getHobby2(profileId);
-    const accessory = getAccessory(profileId);
+    const accessory = getAccessory(profileId) || "None";
     const face = getFace(profileId);
-    const facialHair = getFacialHair(profileId);
+    const facialHair = getFacialHair(profileId) || "None";
     const hair = getHair(profileId);
-    const pose = getPose(profileId);
+    const body = getPose(profileId); // Assuming body corresponds to the pose
     const skinTone = getSkinTone(profileId);
 
     const styles = {
@@ -227,22 +228,6 @@ export function createProfile(profileId) {
             position: 'relative',
             marginBottom: '15px',
         },
-        peepStyle: {
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-        },
-        hairStyle: {
-            fill: '#8B4513' 
-        },
-        bodyStyle: {
-            fill: '#FF0000' 
-        },
-        skinStyle: {
-            fill: skinTone
-        },
         textStyle: {
             color: 'black',
             fontSize: 12,
@@ -259,25 +244,35 @@ export function createProfile(profileId) {
         },
     };
 
+    const bodyDetails = {
+        type: body,
+        options: { color: "blue" }
+    };
+    
+    const headDetails = {
+        type: hair,
+        options: { color: "brown" }
+    };
+    
+    const faceDetails = {
+        type: face,
+        options: { eyeColor: "green" }
+    };
+    
+    const beardDetails = {
+        type: facialHair,
+        options: { color: "black" }
+    };
+    
+    const accessoryDetails = {
+        type: accessory,
+        options: { color: "black" }
+    };
+
     return (
         <div style={styles.profileContainer}>
             <div style={styles.peepContainer}>
-                <Peep
-                    style={styles.peepStyle}
-                    accessory={accessory}
-                    body={pose}
-                    face={face}
-                    hair={hair}
-                    facialHair={facialHair}
-                    strokeColor='black'
-                    backgroundColor={skinTone}
-                >
-                    <g>
-                        <path style={styles.hairStyle} d={hair} />
-                        <path style={styles.bodyStyle} d={pose} />
-                        <path style={styles.skinStyle} d={skinTone} />
-                    </g>
-                </Peep>
+            <Effigy body={bodyDetails} head={headDetails} face={faceDetails} beard={beardDetails} accessory={accessoryDetails} />
             </div>
             <div style={styles.textStyle}>Profile ID: {profileId}</div>
             <div style={styles.textStyle}>Name: {name}</div>
@@ -289,88 +284,3 @@ export function createProfile(profileId) {
     );
 }
 
-
-
-// const CustomPeep = ({ accessory, body, face, hair, facialHair, skinTone }) => (
-//     <Peep
-//         accessory={accessory}
-//         body={body}
-//         face={face}
-//         hair={hair}
-//         facialHair={facialHair}
-//         strokeColor='black'
-//         backgroundColor={skinTone}
-//         hairColor='#8B4513' // Brown hair
-//         bodyColor='#FF0000' // Red clothes
-//     />
-// );
-
-
-// export function createProfile(profileId) {
-//     const name = getName(profileId);
-//     const age = getAge(profileId);
-//     const hobby1 = getHobby1(profileId);
-//     const hobby2 = getHobby2(profileId);
-//     const accessory = getAccessory(profileId);
-//     const face = getFace(profileId);
-//     const facialHair = getFacialHair(profileId);
-//     const hair = getHair(profileId);
-//     const body = getPose(profileId); // Assuming body corresponds to the pose
-//     const skinTone = getSkinTone(profileId);
-
-//     const styles = {
-//         profileContainer: {
-//             width: '100%',
-//             padding: '20px',
-//             background: '#D9D9D9',
-//             borderRadius: 15,
-//             display: 'flex',
-//             flexDirection: 'column',
-//             alignItems: 'flex-start',
-//             marginBottom: '20px',
-//             overflow: 'hidden',
-//         },
-//         peepContainer: {
-//             width: '100%',
-//             height: '0',
-//             paddingBottom: '100%', // 1:1 aspect ratio
-//             position: 'relative',
-//             marginBottom: '15px',
-//         },
-//         textStyle: {
-//             color: 'black',
-//             fontSize: 12,
-//             fontFamily: 'Inter',
-//             fontWeight: '700',
-//             wordWrap: 'break-word',
-//         },
-//         aboutTextStyle: {
-//             color: 'black',
-//             fontSize: 12,
-//             fontFamily: 'Inter',
-//             fontWeight: '400',
-//             wordWrap: 'break-word',
-//         },
-//     };
-
-//     return (
-//         <div style={styles.profileContainer}>
-//             <div style={styles.peepContainer}>
-//                 <CustomPeep
-//                     accessory={accessory}
-//                     body={body}
-//                     face={face}
-//                     hair={hair}
-//                     facialHair={facialHair}
-//                     skinTone={skinTone}
-//                 />
-//             </div>
-//             <div style={styles.textStyle}>Profile ID: {profileId}</div>
-//             <div style={styles.textStyle}>Name: {name}</div>
-//             <div style={styles.textStyle}>Age: {age}</div>
-//             <div style={styles.textStyle}>Hobbies: {hobby1}, {hobby2}</div>
-//             <div style={styles.textStyle}>About me:</div>
-//             <div style={styles.aboutTextStyle}>I enjoy outdoor activities like swimming, fishing, or climbing</div>
-//         </div>
-//     );
-// }
