@@ -21,6 +21,11 @@ export function getAge(profileId) {
     return profile ? profile.age : "Profile not found";
 }
 
+export function getMainHobby(profileId) {
+    const profile = findProfileById(profileId);
+    return profile ? profile.main_hobby : "Main Hobby not found";
+}
+
 export function getHobby1(profileId) {
     const profile = findProfileById(profileId);
     return profile ? profile.hobby_1 : "Profile not found";
@@ -61,10 +66,19 @@ export function getSkinTone(profileId) {
     return profile ? profile.skin_tone : "Skin tone not found";
 }
 
+export function getHairColor(profileId) {
+    const profile = findProfileById(profileId);
+    return profile ? profile.hair_color : "Hair color not found";
+}
+
+export function getClothesColor(profileId) {
+    const profile = findProfileById(profileId);
+    return profile ? profile.clothes_color : "Clothes color not found";
+}
+
 export function getRandomRecommendation(player, ownProfileID) {
     const pastOpponentIDs = (player.get("opponentIDs") || []).map(id => parseInt(id));
-    console.log("utils getRandomRecommendation pastOpponentIDs")
-    console.log(pastOpponentIDs)
+
 
     const otherProfiles = profiles.filter(p => {
         const profileID = parseInt(p.profile_ID);
@@ -72,7 +86,6 @@ export function getRandomRecommendation(player, ownProfileID) {
     });
 
     if (otherProfiles.length === 0) {
-        console.log("No eligible profiles found.");
         return null; 
     }
 
@@ -208,6 +221,8 @@ export function createProfile(profileId) {
     const hair = getHair(profileId);
     const body = getPose(profileId); // Assuming body corresponds to the pose
     const skinTone = getSkinTone(profileId);
+    const hairColor = getHairColor(profileId);
+    const clothesColor = getClothesColor(profileId);
 
     const styles = {
         profileContainer: {
@@ -248,12 +263,12 @@ export function createProfile(profileId) {
 
     const bodyDetails = {
         type: body,
-        options: { skinColor: skinTone, topColor: "#8FAAAA", blazerColor: "#8FAAAA", outlineColor: "#000" }
+        options: { skinColor: skinTone, topColor: clothesColor, blazerColor: clothesColor, outlineColor: "#000" }
     };
 
     const headDetails = {
         type: hair,
-        options: { hairColor: "brown", skinColor: skinTone, outlineColor: "#000" }
+        options: { hairColor: hairColor, skinColor: skinTone, outlineColor: "#000" }
     };
 
     const faceDetails = {
