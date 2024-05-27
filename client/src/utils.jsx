@@ -222,10 +222,12 @@ export function createProfile(profileId) {
             overflow: 'hidden',
         },
         peepContainer: {
-            width: '100%',
-            height: '0',
-            paddingBottom: '100%', // 1:1 aspect ratio
-            position: 'relative',
+            width: '250px', // Set the desired width
+            height: '230px', // Set the desired height
+            overflow: 'hidden',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             marginBottom: '15px',
         },
         textStyle: {
@@ -246,33 +248,40 @@ export function createProfile(profileId) {
 
     const bodyDetails = {
         type: body,
-        options: { color: "blue" }
+        options: { skinColor: skinTone, topColor: "#8FAAAA", blazerColor: "#8FAAAA", outlineColor: "#000" }
     };
-    
+
     const headDetails = {
         type: hair,
-        options: { color: "brown" }
+        options: { hairColor: "brown", skinColor: skinTone, outlineColor: "#000" }
     };
-    
+
     const faceDetails = {
         type: face,
-        options: { eyeColor: "green" }
+        options: { outlineColor: "#000" }
     };
-    
+
     const beardDetails = {
         type: facialHair,
-        options: { color: "black" }
+        options: { outlineColor: "#000", beardColor: "#000" }
     };
-    
+
     const accessoryDetails = {
         type: accessory,
-        options: { color: "black" }
+        options: { outlineColor: "#000", frameColor: "#8FAAAA" }
     };
 
     return (
         <div style={styles.profileContainer}>
             <div style={styles.peepContainer}>
-            <Effigy body={bodyDetails} head={headDetails} face={faceDetails} beard={beardDetails} accessory={accessoryDetails} />
+                <Effigy 
+                    body={bodyDetails} 
+                    head={headDetails} 
+                    face={faceDetails} 
+                    beard={beardDetails} 
+                    accessory={accessoryDetails} 
+                    style={{ width: '100%', height: '100%' }} // Make the Effigy fit the container
+                />
             </div>
             <div style={styles.textStyle}>Profile ID: {profileId}</div>
             <div style={styles.textStyle}>Name: {name}</div>
@@ -283,4 +292,3 @@ export function createProfile(profileId) {
         </div>
     );
 }
-
