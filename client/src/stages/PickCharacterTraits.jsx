@@ -71,9 +71,9 @@ export function PickCharacterTraits() {
                                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                                     <select id="hobby" name="hobby" value={hobby} onChange={e => setHobby(e.target.value)} className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
                                         <option value="">Select a Hobby</option>
-                                        <option value="Sports">Sports</option>
+                                        <option value="Sport">Sport</option>
                                         <option value="Music">Music</option>
-                                        <option value="Art">Art</option>
+                                        <option value="Arts">Arts and Crafts</option>
                                         <option value="Travel">Travel</option>
                                     </select>
                                 </div>

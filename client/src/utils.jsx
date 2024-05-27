@@ -237,8 +237,8 @@ export function createProfile(profileId) {
             overflow: 'hidden',
         },
         peepContainer: {
-            width: '250px', // Set the desired width
-            height: '230px', // Set the desired height
+            width: '250px',
+            height: '230px',
             overflow: 'hidden',
             display: 'flex',
             justifyContent: 'center',
