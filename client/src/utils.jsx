@@ -209,7 +209,6 @@ export function getRandomRecommendation(player, ownProfileID) {
 //     );
 // }
 
-
 export function createProfile(profileId) {
     const name = getName(profileId);
     const age = getAge(profileId);
@@ -247,14 +246,21 @@ export function createProfile(profileId) {
         },
         textStyle: {
             color: 'black',
-            fontSize: 12,
+            fontSize: '16px', // Increased font size
             fontFamily: 'Inter',
             fontWeight: '700',
             wordWrap: 'break-word',
         },
+        answerTextStyle: {
+            color: 'black',
+            fontSize: '16px', // Increased font size
+            fontFamily: 'Inter',
+            fontWeight: '400',
+            wordWrap: 'break-word',
+        },
         aboutTextStyle: {
             color: 'black',
-            fontSize: 12,
+            fontSize: '16px', // Increased font size
             fontFamily: 'Inter',
             fontWeight: '400',
             wordWrap: 'break-word',
@@ -295,13 +301,15 @@ export function createProfile(profileId) {
                     face={faceDetails} 
                     beard={beardDetails} 
                     accessory={accessoryDetails} 
-                    style={{ width: '100%', height: '100%' }} // Make the Effigy fit the container
+                    style={{ width: '80%', height: '80%' }} // Make the Effigy fit the container
                 />
             </div>
-            <div style={styles.textStyle}>Profile ID: {profileId}</div>
-            <div style={styles.textStyle}>Name: {name}</div>
-            <div style={styles.textStyle}>Age: {age}</div>
-            <div style={styles.textStyle}>Hobbies: {hobby1}, {hobby2}</div>
+            {/* <div style={styles.textStyle}>Profile ID: <span style={styles.answerTextStyle}>{profileId}</span></div> */}
+            {/* <div style={styles.textStyle}>Name: <span style={styles.answerTextStyle}>{name}</span></div> */}
+            <div style={styles.textStyle}>Age: <span style={styles.answerTextStyle}>{age}</span></div>
+            {/* <div style={styles.textStyle}>Hobbies: <span style={styles.answerTextStyle}>{hobby1}, {hobby2}</span></div> */}
+            <div style={styles.textStyle}>Hobbies:</div>
+            <div style={styles.aboutTextStyle}>{hobby1}, {hobby2}</div>
             <div style={styles.textStyle}>About me:</div>
             <div style={styles.aboutTextStyle}>I enjoy outdoor activities like swimming, fishing, or climbing</div>
         </div>

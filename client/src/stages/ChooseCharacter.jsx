@@ -42,7 +42,7 @@ export function ChooseCharacter() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', padding: '20px', justifyItems: 'center', alignItems: 'start' }}>
             {shuffledProfiles.map((profile) => {
                 return (
-                    <div key={profile.profile_ID} style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '500px' }}>
+                    <div key={profile.profile_ID} style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px' }}>
                         {createProfile(profile.profile_ID)}
                         <button
                             onClick={() => handlePlayCharacter(profile.profile_ID)}

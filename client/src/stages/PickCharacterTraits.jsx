@@ -24,7 +24,8 @@ export function PickCharacterTraits() {
         <div className="py-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg">
             <h1 className="text-lg leading-6 font-medium text-gray-900">Pick Your Character's Traits</h1>
             <p className="mt-1 text-sm text-gray-500">
-                Customize your character's traits for the simulation. Make selections for each category below.
+                First, you need to pick your Character's traits.
+                Make a selection for each category below. Then, click on the submit button.
             </p>
 
             <form className="mt-12 space-y-8 divide-y divide-gray-200" onSubmit={handleFormSubmit}>
@@ -33,18 +34,18 @@ export function PickCharacterTraits() {
                         <div className="space-y-6 sm:space-y-5">
                             <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                                 <label htmlFor="glasses" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                    Glasses
+                                Does your character wear glasses?
                                 </label>
                                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                                     <select id="glasses" name="glasses" value={glasses} onChange={e => setGlasses(e.target.value)} className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-                                        <option value="">Select Glasses Option</option>
+                                        <option value="">Select Glasses</option>
                                         <option value="Yes">Yes</option>
                                         <option value="No">No</option>
                                     </select>
                                 </div>
 
                                 <label htmlFor="hair" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                    Hair
+                                Does your character have long or short hair?
                                 </label>
                                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                                     <select id="hair" name="hair" value={hair} onChange={e => setHair(e.target.value)} className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
@@ -55,11 +56,11 @@ export function PickCharacterTraits() {
                                 </div>
 
                                 <label htmlFor="beard" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                    Beard
+                                Does your character have a beard?
                                 </label>
                                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                                     <select id="beard" name="beard" value={beard} onChange={e => setBeard(e.target.value)} className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-                                        <option value="">Select Beard Option</option>
+                                        <option value="">Select Beard</option>
                                         <option value="Yes">Yes</option>
                                         <option value="No">No</option>
                                     </select>
@@ -68,11 +69,11 @@ export function PickCharacterTraits() {
 
                             <div className="sm:border-t sm:border-gray-200 sm:pt-5">
                                 <label htmlFor="hobby" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                    Main Hobby
+                                    What is your character's main hobby?
                                 </label>
                                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                                     <select id="hobby" name="hobby" value={hobby} onChange={e => setHobby(e.target.value)} className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-                                        <option value="">Select a Hobby</option>
+                                        <option value="">Select Hobby</option>
                                         <option value="Sport">Sport</option>
                                         <option value="Music">Music</option>
                                         <option value="Arts">Arts and Crafts</option>

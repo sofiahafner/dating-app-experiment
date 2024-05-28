@@ -17,7 +17,7 @@ Empirica.onGameStart(({ game }) => {
       name: `Round ${index + 1}`,
     });
 
-    round.addStage({name: "swipeProfile", duration: 10});
+    round.addStage({name: "swipeProfile", duration: 3000});
     // round.addStage({name: "Results", duration: 1});
   }
   
