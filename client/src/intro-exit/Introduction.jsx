@@ -75,22 +75,25 @@ export function Introduction({ next }) {
           The results will be written up for an MSc degree.
         </p>
 
-
+        <br /><br />
         <h3 className="text-lg leading-6 font-medium text-gray-900">
           Who has reviewed this research?
         </h3>
+
         <p className="text-sm text-gray-500">
           This research has been reviewed by, and received ethics clearance through, a subcommittee of the University of Oxford Central University Research Ethics Committee OII_C1A_24_065.
         </p>
 
+        <br /><br />
         <h3 className="text-lg leading-6 font-medium text-gray-900">
           Who do I contact if I have a concern or I wish to complain?
         </h3>
+
         <p className="text-sm text-gray-500">
-          If you have a concern about any aspect of this research, please contact Franziska Hafner at Franziska.Hafner@oii.ox.ac.uk or Dr Luc Rocher at Luc.Rocher@oii.ox.ac.uk, and we will do our best to answer your query. We will acknowledge your concern within 10 working days and give you an indication of how it will be dealt with. If you remain unhappy or wish to make a formal complaint, please contact the University of Oxford Research Governance, Ethics & Assurance (RGEA) team at rgea.complaints@admin.ox.ac.uk or on 01865 616480.
+          If you have a concern about any aspect of this research, please contact Franziska Hafner at Franziska.Hafner@oii.ox.ac.uk or Dr Luc Rocher at Luc.Rocher@oii.ox.ac.uk, and we will do our best to answer your query. We will acknowledge your concern within 10 working days and give you an indication of how it will be dealt with. If you remain unhappy or wish to make a formal complaint, please contact the University of Oxford Research Governance, Ethics & Assurance (RGEA) team at rgea.complaints@admin.ox.ac.uk or on 01865 616480.<br /><br />
         </p>
         <p className="text-sm text-gray-500">
-          Please note that you may only participate in this survey if you are 18 years of age or over.
+          Please note that you may only participate in this survey if you are 18 years of age or over.<br /><br />
           If you have read the information above and agree to participate with the understanding that the data (including any personal data) you submit will be processed accordingly, please tick the box below to start.
         </p>
 

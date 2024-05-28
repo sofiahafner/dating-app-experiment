@@ -11,6 +11,7 @@ import { SwipeProfile } from "./stages/SwipeProfile.jsx";
 import { Results } from "./stages/Results.jsx";
 import { PickCharacterTraits } from "./stages/PickCharacterTraits.jsx";
 import { ChooseCharacter } from "./stages/ChooseCharacter.jsx";
+import {Explanation} from "./stages/Explanation.jsx"
 
 export function Stage() {
   const player = usePlayer();
@@ -31,6 +32,8 @@ export function Stage() {
   }
 
   switch (stage.get("name")){
+    case "explanation":
+        return <Explanation/>
     case "pickCharacterTraits":
       return <PickCharacterTraits/>
     case "swipeProfile":
@@ -41,6 +44,7 @@ export function Stage() {
     //     return <Results/>
     default:
       console.log("AAA")
+      console.log(stage.get("name"))
       return <p>Loading...</p>
   }
 
