@@ -226,7 +226,7 @@ export function createProfile(profileId) {
     const styles = {
         profileContainer: {
             width: '100%',
-            padding: '20px',
+            padding: '10px',
             background: '#D9D9D9',
             borderRadius: 15,
             display: 'flex',
@@ -236,8 +236,8 @@ export function createProfile(profileId) {
             overflow: 'hidden',
         },
         peepContainer: {
-            width: '250px',
-            height: '230px',
+            width: '100%',
+            height: '170px',
             overflow: 'hidden',
             display: 'flex',
             justifyContent: 'center',
@@ -246,21 +246,21 @@ export function createProfile(profileId) {
         },
         textStyle: {
             color: 'black',
-            fontSize: '16px', // Increased font size
+            fontSize: '14px', // Increased font size
             fontFamily: 'Inter',
             fontWeight: '700',
             wordWrap: 'break-word',
         },
         answerTextStyle: {
             color: 'black',
-            fontSize: '16px', // Increased font size
+            fontSize: '14px', // Increased font size
             fontFamily: 'Inter',
             fontWeight: '400',
             wordWrap: 'break-word',
         },
         aboutTextStyle: {
             color: 'black',
-            fontSize: '16px', // Increased font size
+            fontSize: '14px', // Increased font size
             fontFamily: 'Inter',
             fontWeight: '400',
             wordWrap: 'break-word',
@@ -294,14 +294,14 @@ export function createProfile(profileId) {
 
     return (
         <div style={styles.profileContainer}>
-            <div style={styles.peepContainer}>
+            <div style={{ ...styles.peepContainer, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Effigy 
                     body={bodyDetails} 
                     head={headDetails} 
                     face={faceDetails} 
                     beard={beardDetails} 
                     accessory={accessoryDetails} 
-                    style={{ width: '80%', height: '80%' }} // Make the Effigy fit the container
+                    style={{ width: '100%', height: '100%' }} // Make the Effigy fit the container
                 />
             </div>
             {/* <div style={styles.textStyle}>Profile ID: <span style={styles.answerTextStyle}>{profileId}</span></div> */}
@@ -311,7 +311,8 @@ export function createProfile(profileId) {
             <div style={styles.textStyle}>Hobbies:</div>
             <div style={styles.aboutTextStyle}>{hobby1}, {hobby2}</div>
             <div style={styles.textStyle}>About me:</div>
-            <div style={styles.aboutTextStyle}>I enjoy outdoor activities like swimming, fishing, or climbing</div>
+            <div style={styles.aboutTextStyle}>Always ready for a spontaneous jam session, I'm looking for someone who can keep up with my rhythm and share in the fun!</div>
         </div>
     );
+    
 }

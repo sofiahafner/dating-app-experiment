@@ -13,7 +13,7 @@ export function SwipeProfile() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setButtonsEnabled(true);
-        }, 3000);
+        }, 300);
 
         return () => clearTimeout(timer);
     }, []);

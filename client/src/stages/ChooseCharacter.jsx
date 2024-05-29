@@ -48,7 +48,7 @@ export function ChooseCharacter() {
         <div style={{ display: 'flex', height: '100%' }}>
             <div style={{ width: '20%', background: '#282828', padding: '20px', boxSizing: 'border-box' }}>
                 <div style={{ color: '#DADADA', fontSize: 22, fontFamily: 'Inter', fontWeight: '700' }}>Instructions</div>
-                <div style={{ color: '#DADADA', fontSize: 16, fontFamily: 'Inter', fontWeight: '400' }}>Select a character you want to play by clicking on the "Play this Character" button on their profile. Use to form below to change your previous selections.</div>
+                <div style={{ color: '#DADADA', fontSize: 16, fontFamily: 'Inter', fontWeight: '400' }}>Select a character you want to play by clicking on the "Play this Character" button under their profile. Use the form below to change your previous selections.</div>
                 <div className="mt-12 space-y-8 divide-y divide-gray-200">
                     <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
                         <div>
@@ -107,7 +107,7 @@ export function ChooseCharacter() {
                 {shuffledProfiles.map((profile, index) => {
                     const isTopRow = index < 4;
                     return (
-                        <div key={profile.profile_ID} style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', marginBottom: isTopRow ? '20px' : '0' }}>
+                        <div key={profile.profile_ID} style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '350px', maxHeight: '450px', marginBottom: isTopRow ? '20px' : '0' }}>
                             {createProfile(profile.profile_ID)}
                             <button
                                 onClick={() => handlePlayCharacter(profile.profile_ID)}
