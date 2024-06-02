@@ -69,6 +69,20 @@ Empirica.onStageEnded(({ stage}) => {
 
 
 Empirica.onRoundEnded(({ round }) => {
+  // const { numSwipes } = treatment; 
+  console.log(round.get("name"))
+  const players = round.currentGame.players
+  for (let index = 0; index < 100; index++) {
+    const round_name =  `Round ${index + 1}`
+    if (round.get("name") === round_name){
+      console.log("round name matches")
+      for (const player of players) {
+        console.log("rin players on round ended")
+        player.set("roundsPlayed", index + 1);
+      }
+    }
+    };
+
 
 });
 
