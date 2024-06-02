@@ -21,7 +21,7 @@ export function ChooseCharacter() {
 
     const handleSurveySubmit = (surveyData) => {
         // Handle survey submission logic
-        console.log(surveyData);
+        // console.log(surveyData);
         player.round.set('chosenProfile', parseInt(chosenProfile));
         player.stage.set("submit", true);
     };

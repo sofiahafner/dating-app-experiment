@@ -85,7 +85,6 @@ export function getClothesColor(profileId) {
 
 export function getJob(profileId) {
     const profile = findProfileById(profileId);
-    console.log(profile)
     return profile ? profile.job : "Job not found";
 }
 

@@ -223,7 +223,7 @@ function CharacterSurveyModal({ onSubmit, onClose, profile }) {
 
                     <div className="flex-1 space-y-2 text-center">
                         <div className="text-xl leading-6 font-medium text-gray-900">Chosen Character Profile</div>
-                        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', margin: '0 auto', textAlign: 'center' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', margin: '0 auto', textAlign: 'left' }}>
                             {createProfile(profile)}
                         </div>
                     </div>

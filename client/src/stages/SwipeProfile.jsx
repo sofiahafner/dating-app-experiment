@@ -8,7 +8,8 @@ import SwipeProfileSurveyModalRecommendationSystem from './SwipeProfileSurveyMod
 
 export function SwipeProfile() {
     const player = usePlayer();
-    const player_round = player.get("roundsPlayed")-1;
+    const player_round = player.get("roundsPlayed");
+    console.log(player_round)
     const [buttonsEnabled, setButtonsEnabled] = useState(false);
     const [showSurvey, setShowSurvey] = useState(false);
     const [selectedProfile, setSelectedProfile] = useState(null);
@@ -32,7 +33,7 @@ export function SwipeProfile() {
             if (player_round % 10 === 0) {
                 setShowRecommendationModal(true);
                 setSelectedProfile({ likedProfile, dislikedProfile });
-            } else if (player_round === 5 || player_round === 8 || player_round === 13){
+            } else if (player_round === 5 || player_round === 27 || player_round === 32){
                 setSelectedProfile({ likedProfile, dislikedProfile });
                 setShowSurvey(true);
                 setProfileChoiceCount(profileChoiceCount + 1);
@@ -49,7 +50,7 @@ export function SwipeProfile() {
     };
 
     const handleSurveySubmit = (reason) => {
-        console.log("Survey reason:", reason); // Handle survey response (e.g., save to database)
+        // console.log("Survey reason:", reason); // Handle survey response (e.g., save to database)
         if (selectedProfile) {
             submitChoice(selectedProfile.likedProfile, selectedProfile.dislikedProfile);
         }
@@ -57,7 +58,7 @@ export function SwipeProfile() {
     };
 
     const handleRecommendationSubmit = (reason) => {
-        console.log("Recommendation reason:", reason); // Handle recommendation response (e.g., save to database)
+        // console.log("Recommendation reason:", reason); // Handle recommendation response (e.g., save to database)
         if (selectedProfile) {
             submitChoice(selectedProfile.likedProfile, selectedProfile.dislikedProfile);
         }

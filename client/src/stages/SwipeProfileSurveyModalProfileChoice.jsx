@@ -52,6 +52,7 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
                                         <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Both About the Same</th>
                                         <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Other Character was Better</th>
                                         <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prefer not to say</th>
+                                        <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Not Applicable</th>
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
@@ -104,6 +105,15 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
                                                     onChange={handleAttributeChange}
                                                 />
                                             </td>
+                                            <td className="px-2 py-2 whitespace-nowrap">
+                                                <input
+                                                    type="radio"
+                                                    name={attr.id}
+                                                    value="notApplicable"
+                                                    className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                                                    onChange={handleAttributeChange}
+                                                />
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -139,5 +149,6 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
         </div>
     );
 }
+
 
 export default SwipeProfileSurveyModalProfileChoice;
