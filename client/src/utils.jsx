@@ -83,6 +83,12 @@ export function getClothesColor(profileId) {
     return profile ? profile.clothes_color : "Clothes color not found";
 }
 
+export function getJob(profileId) {
+    const profile = findProfileById(profileId);
+    console.log(profile)
+    return profile ? profile.job : "Job not found";
+}
+
 export function getRandomRecommendation(player, ownProfileID) {
     const pastOpponentIDs = (player.get("opponentIDs") || []).map(id => parseInt(id));
 
@@ -114,6 +120,7 @@ export function createProfile(profileId) {
     const skinTone = getSkinTone(profileId);
     const hairColor = getHairColor(profileId);
     const clothesColor = getClothesColor(profileId);
+    const job = getJob(profileId);
 
     const styles = {
         profileContainer: {
@@ -138,7 +145,7 @@ export function createProfile(profileId) {
         },
         textContainer: {
             width: '100%',
-            height: '150px',
+            height: '90px',
             overflow: 'hidden',
         },
         textStyle: {
@@ -203,10 +210,12 @@ export function createProfile(profileId) {
             </div>
             <div style={styles.textContainer}>
                 <div style={styles.textStyle}>Age: <span style={styles.answerTextStyle}>{age}</span></div>
-                <div style={styles.textStyle}>Hobbies:</div>
-                <div style={styles.aboutTextStyle}>{hobby1}, {hobby2}</div>
-                <div style={styles.textStyle}>About me:</div>
-                <div style={styles.aboutTextStyle}>{getProfileBio(profileId)}</div>
+                <div style={styles.textStyle}>Hobbies: <span style={styles.answerTextStyle}>{hobby1}, {hobby2}</span></div>
+                {/* <div style={styles.textStyle}>Hobbies:</div>
+                <div style={styles.aboutTextStyle}>{hobby1}, {hobby2}</div> */}
+                <div style={styles.textStyle}>Job: <span style={styles.answerTextStyle}>{job}</span></div>
+                {/* <div style={styles.textStyle}>About me:</div>
+                <div style={styles.aboutTextStyle}>{getProfileBio(profileId)}</div> */}
             </div>
         </div>
     );
