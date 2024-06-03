@@ -34,3 +34,8 @@ treatments:
       playerCount: 1
       numSwipes : 50
     name: Solo
+  - desc: "Single-player Game Test Short"
+    factors:
+      playerCount: 1
+      numSwipes : 15
+    name: SoloTestShort

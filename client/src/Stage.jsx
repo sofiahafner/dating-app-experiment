@@ -12,6 +12,7 @@ import { Results } from "./stages/Results.jsx";
 import { PickCharacterTraits } from "./stages/PickCharacterTraits.jsx";
 import { ChooseCharacter } from "./stages/ChooseCharacter.jsx";
 import {Explanation} from "./stages/Explanation.jsx"
+import {EndSurvey} from "./stages/EndSurvey.jsx"
 
 export function Stage() {
   const player = usePlayer();
@@ -40,6 +41,8 @@ export function Stage() {
       return <SwipeProfile/>
     case "chooseCharacter":
       return <ChooseCharacter/>
+    case "endSurvey":
+      return <EndSurvey/>
     // case "Results":
     //     return <Results/>
     default:

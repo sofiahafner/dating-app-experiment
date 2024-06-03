@@ -8,7 +8,7 @@ import SwipeProfileSurveyModalRecommendationSystem from './SwipeProfileSurveyMod
 
 export function SwipeProfile() {
     const player = usePlayer();
-    const player_round = player.get("roundsPlayed");
+    const player_round = player.get("roundsPlayed")+1;
     console.log(player_round)
     const [buttonsEnabled, setButtonsEnabled] = useState(false);
     const [showSurvey, setShowSurvey] = useState(false);

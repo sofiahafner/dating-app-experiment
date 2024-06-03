@@ -21,20 +21,24 @@ Empirica.onGameStart(({ game }) => {
     round.addStage({name: "swipeProfile", duration: 3000});
     // round.addStage({name: "Results", duration: 1});
   }
-  
+  const after_rounds = game.addRound({
+    name : 'afterRounds'
+  })
+  after_rounds.addStage({name: "endSurvey", duration: 3000});
 });
 
 
 Empirica.onRoundStart(({ round }) => {
   if (round.get("name") !== "preRounds") {
-    const players = round.currentGame.players
-    let profile_id = 1
-    for (const player of players){
-      player.round.set('ownProfileID', profile_id)
-      profile_id = profile_id + 1
+    if (round.get("name") !== "afterRounds") {
+      const players = round.currentGame.players
+      let profile_id = 1
+      for (const player of players){
+        player.round.set('ownProfileID', profile_id)
+        profile_id = profile_id + 1
+      }
     }
   }
-
 });
 
 Empirica.onStageStart(({ stage }) => {
