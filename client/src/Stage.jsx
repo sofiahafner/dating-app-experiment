@@ -12,7 +12,9 @@ import { Results } from "./stages/Results.jsx";
 import { PickCharacterTraits } from "./stages/PickCharacterTraits.jsx";
 import { ChooseCharacter } from "./stages/ChooseCharacter.jsx";
 import {Explanation} from "./stages/Explanation.jsx"
-import {EndSurvey} from "./stages/EndSurvey.jsx"
+import {EndSurveyDatingAppUsage} from "./stages/EndSurveyDatingAppUsage.jsx"
+import {EndSurveyRecommendationSystem} from "./stages/EndSurveyRecommendationSystem.jsx"
+
 
 export function Stage() {
   const player = usePlayer();
@@ -41,8 +43,10 @@ export function Stage() {
       return <SwipeProfile/>
     case "chooseCharacter":
       return <ChooseCharacter/>
-    case "endSurvey":
-      return <EndSurvey/>
+    case "endSurveyDatingAppUsage":
+      return <EndSurveyDatingAppUsage/>
+    case "endSurveyRecommendationSystem":
+      return <EndSurveyRecommendationSystem/>
     // case "Results":
     //     return <Results/>
     default:

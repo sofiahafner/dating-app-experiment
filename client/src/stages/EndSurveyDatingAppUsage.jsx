@@ -1,7 +1,7 @@
 import { usePlayer } from '@empirica/core/player/classic/react';
 import React, { useState, useEffect } from 'react';
 
-export function EndSurvey() {
+export function EndSurveyDatingAppUsage() {
     const player = usePlayer();
     const [activeOnDatingApps, setActiveOnDatingApps] = useState('');
     const [frequency, setFrequency] = useState('');
@@ -43,9 +43,10 @@ export function EndSurvey() {
 
     useEffect(() => {
         const factorsList = ["Political affiliation", "Race / Ethnicity", "Nationality", "Hobbies", "Income level", "Popularity on App", "Profession", "Education Level", "Relationship history", "Dietary preferences", "Height", "Number of children", "Pet ownership", "Language spoken", "Social media activity", "Physical Health", "Mental Health"];
-        const allFactorsSelected = factorsList.every(factor => factors[factor]);
-        const allRecommendationsSelected = factorsList.every(factor => recommendations[factor]);
-
+        
+        const allFactorsSelected = factorsList.every(factor => factors[`factor-${factor}`]);
+        const allRecommendationsSelected = factorsList.every(factor => recommendations[`recommend-${factor}`]);
+    
         console.log("Active on dating apps: ", activeOnDatingApps);
         console.log("Frequency: ", frequency);
         console.log("Apps used: ", appsUsed);
@@ -53,17 +54,18 @@ export function EndSurvey() {
         console.log("Recommendations: ", recommendations);
         console.log("All factors selected: ", allFactorsSelected);
         console.log("All recommendations selected: ", allRecommendationsSelected);
-
+    
         const isAllRequiredFieldsSelected = () => {
             if (activeOnDatingApps === "I am currently active on dating apps." || activeOnDatingApps === "I am not currently active on dating apps but was in the past.") {
                 return frequency && appsUsed.length > 0 && allFactorsSelected && allRecommendationsSelected;
             }
             return activeOnDatingApps && allRecommendationsSelected;
         };
-
+    
         setIsSubmitEnabled(isAllRequiredFieldsSelected());
-
+    
     }, [activeOnDatingApps, frequency, appsUsed, factors, recommendations]);
+    
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center overflow-auto">
@@ -203,7 +205,8 @@ export function EndSurvey() {
                         <div className="flex justify-end">
                         <button 
                                 type="submit" 
-                                className={`py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 bg-blue-600 hover:bg-blue-700`} 
+                                className={`py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 ${isSubmitEnabled ? 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500' : 'bg-gray-400 cursor-not-allowed'}`} 
+                                disabled={!isSubmitEnabled}
                             >
                                 Submit
                             </button>
