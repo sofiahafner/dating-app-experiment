@@ -12,6 +12,15 @@ export function EndSurveyRecommendationSystem() {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
+        // Save experience attributes
+        Object.entries(experienceAttributes).forEach(([key, value]) => {
+            player.round.set(key, value);
+        });
+        // Save other survey responses
+        player.round.set('systemVariety', systemVariety);
+        player.round.set('recommendationDiversity', recommendationDiversity);
+        player.round.set('recommendationQuality', recommendationQuality);
+        player.round.set('additionalComments', additionalComments);
         player.stage.set("submit", true);
     };
 

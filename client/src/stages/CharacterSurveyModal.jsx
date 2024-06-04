@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { usePlayer } from '@empirica/core/player/classic/react';
-import { createProfile , getFacialHair, getAccessory} from '../utils.jsx';
-
+import { createProfile, getFacialHair, getAccessory } from '../utils.jsx';
 
 function CharacterSurveyModal({ onSubmit, onClose, profile }) {
+    const player = usePlayer();
+
     const [attributes, setAttributes] = useState({
         similar_hair: '',
         similar_glasses: '',
@@ -47,6 +47,14 @@ function CharacterSurveyModal({ onSubmit, onClose, profile }) {
     };
 
     const handleSubmit = () => {
+        Object.entries(attributes).forEach(([key, value]) => {
+            player.round.set(`chosenCharacter${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
+        });
+        Object.entries(influences).forEach(([key, value]) => {
+            player.round.set(`chosenCharacterInfluence${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
+        });
+        player.stage.set("submit", true);
+
         onSubmit({ attributes, influences });
         onClose();
     };

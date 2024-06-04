@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { usePlayer } from '@empirica/core/player/classic/react';
-import { createProfile, getRandomRecommendation } from '../utils.jsx';
+import { createProfile } from '../utils.jsx';
 
 function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile, unchosenProfile }) {
+    const player = usePlayer();
+
     const [attributes, setAttributes] = useState({
         hair: '',
         glasses: '',
@@ -28,6 +30,11 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
     };
 
     const handleSubmit = () => {
+        Object.entries(attributes).forEach(([key, value]) => {
+            player.round.set(`surveyAttribute${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
+        });
+        player.stage.set("submit", true);
+
         onSubmit(attributes);
         onClose();
     };
@@ -149,6 +156,5 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
         </div>
     );
 }
-
 
 export default SwipeProfileSurveyModalProfileChoice;

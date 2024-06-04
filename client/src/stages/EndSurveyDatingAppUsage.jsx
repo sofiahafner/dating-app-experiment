@@ -12,9 +12,19 @@ export function EndSurveyDatingAppUsage() {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        // if (isSubmitEnabled) {
-        //     player.stage.set("submit", true);
-        // }
+
+        player.round.set("activeOnDatingApps", activeOnDatingApps);
+        player.round.set("frequency", frequency);
+        player.round.set("appsUsed", appsUsed);
+        
+        Object.entries(factors).forEach(([key, value]) => {
+            player.round.set(key, value);
+        });
+
+        Object.entries(recommendations).forEach(([key, value]) => {
+            player.round.set(key, value);
+        });
+
         player.stage.set("submit", true);
     };
 
@@ -46,26 +56,16 @@ export function EndSurveyDatingAppUsage() {
         
         const allFactorsSelected = factorsList.every(factor => factors[`factor-${factor}`]);
         const allRecommendationsSelected = factorsList.every(factor => recommendations[`recommend-${factor}`]);
-    
-        console.log("Active on dating apps: ", activeOnDatingApps);
-        console.log("Frequency: ", frequency);
-        console.log("Apps used: ", appsUsed);
-        console.log("Factors: ", factors);
-        console.log("Recommendations: ", recommendations);
-        console.log("All factors selected: ", allFactorsSelected);
-        console.log("All recommendations selected: ", allRecommendationsSelected);
-    
+
         const isAllRequiredFieldsSelected = () => {
             if (activeOnDatingApps === "I am currently active on dating apps." || activeOnDatingApps === "I am not currently active on dating apps but was in the past.") {
                 return frequency && appsUsed.length > 0 && allFactorsSelected && allRecommendationsSelected;
             }
             return activeOnDatingApps && allRecommendationsSelected;
         };
-    
+
         setIsSubmitEnabled(isAllRequiredFieldsSelected());
-    
     }, [activeOnDatingApps, frequency, appsUsed, factors, recommendations]);
-    
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center overflow-auto">
@@ -203,7 +203,7 @@ export function EndSurveyDatingAppUsage() {
 
                     <div className="pt-5">
                         <div className="flex justify-end">
-                        <button 
+                            <button 
                                 type="submit" 
                                 className={`py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 ${isSubmitEnabled ? 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500' : 'bg-gray-400 cursor-not-allowed'}`} 
                                 disabled={!isSubmitEnabled}

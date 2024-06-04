@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { usePlayer } from '@empirica/core/player/classic/react';
-import { createProfile, getRandomRecommendation } from '../utils.jsx';
 
 function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
+    const player = usePlayer();
+
     const [reasons, setReasons] = useState({
         systemImprovement: '',
         variety: ''
@@ -21,6 +22,11 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
     };
 
     const handleSubmit = () => {
+        Object.entries(reasons).forEach(([key, value]) => {
+            player.round.set(`survey${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
+        });
+        player.stage.set("submit", true);
+
         onSubmit(reasons);
         onClose();
     };
