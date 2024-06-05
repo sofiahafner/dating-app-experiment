@@ -33,8 +33,8 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center overflow-auto">
-            <div className="py-8 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg flex flex-col space-y-8">
-                <h1 className="text-2xl font-bold text-center">Please Answer the Following Questions</h1>
+            <div className="py-8 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg flex flex-col space-y-8">
+                <h1 className="text-2xl font-bold text-center">Recommendation System Improvement and Variety</h1>
                 
                 <h2 className="text-lg leading-6 font-medium text-gray-900 mt-8">Recommendation System Improvement</h2>
                 <p className="mt-1 text-sm text-gray-500">
@@ -52,7 +52,7 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
                             onChange={handleRadioChange}
                         />
                         <label htmlFor="systemImprovement1" className="ml-3 text-sm text-gray-700">
-                            Yes, the system is showing me better recommendations now compared to when I first started interacting with it
+                            Yes, the recommendations are better now
                         </label>
                     </div>
                     <div className="flex items-start">
@@ -65,7 +65,7 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
                             onChange={handleRadioChange}
                         />
                         <label htmlFor="systemImprovement2" className="ml-3 text-sm text-gray-700">
-                            Somewhat, there are minor improvements, but more could be done
+                            Somewhat, with minor improvements
                         </label>
                     </div>
                     <div className="flex items-start">
@@ -78,7 +78,7 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
                             onChange={handleRadioChange}
                         />
                         <label htmlFor="systemImprovement3" className="ml-3 text-sm text-gray-700">
-                            No, I haven't noticed any significant changes in the quality of recommendations
+                            No, no significant changes
                         </label>
                     </div>
                     <div className="flex items-start">
@@ -91,7 +91,7 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
                             onChange={handleRadioChange}
                         />
                         <label htmlFor="systemImprovement4" className="ml-3 text-sm text-gray-700">
-                            The recommendations are getting worse
+                            The recommendations are worse
                         </label>
                     </div>
                     <div className="flex items-start">
@@ -105,19 +105,6 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
                         />
                         <label htmlFor="systemImprovement5" className="ml-3 text-sm text-gray-700">
                             Not sure
-                        </label>
-                    </div>
-                    <div className="flex items-start">
-                        <input
-                            id="preferNotToAnswer2"
-                            name="systemImprovement"
-                            type="radio"
-                            value="preferNotToAnswer"
-                            className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                            onChange={handleRadioChange}
-                        />
-                        <label htmlFor="preferNotToAnswer2" className="ml-3 text-sm text-gray-700">
-                            Prefer not to answer
                         </label>
                     </div>
                 </div>
@@ -138,7 +125,7 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
                             onChange={handleRadioChange}
                         />
                         <label htmlFor="variety1" className="ml-3 text-sm text-gray-700">
-                            There is too much variety in the recommendations
+                            Too much variety
                         </label>
                     </div>
                     <div className="flex items-start">
@@ -151,7 +138,7 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
                             onChange={handleRadioChange}
                         />
                         <label htmlFor="variety2" className="ml-3 text-sm text-gray-700">
-                            There is a good amount of variety
+                            Good amount of variety
                         </label>
                     </div>
                     <div className="flex items-start">
@@ -164,7 +151,7 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
                             onChange={handleRadioChange}
                         />
                         <label htmlFor="variety3" className="ml-3 text-sm text-gray-700">
-                            There is too little variety, all users I am being recommended are too similar
+                            Too little variety
                         </label>
                     </div>
                     <div className="flex items-start">
@@ -178,19 +165,6 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
                         />
                         <label htmlFor="variety4" className="ml-3 text-sm text-gray-700">
                             Not sure
-                        </label>
-                    </div>
-                    <div className="flex items-start">
-                        <input
-                            id="preferNotToAnswer3"
-                            name="variety"
-                            type="radio"
-                            value="preferNotToAnswer"
-                            className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                            onChange={handleRadioChange}
-                        />
-                        <label htmlFor="preferNotToAnswer3" className="ml-3 text-sm text-gray-700">
-                            Prefer not to answer
                         </label>
                     </div>
                 </div>

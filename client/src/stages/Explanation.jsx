@@ -17,23 +17,23 @@ export function Explanation() {
                 </h3>
                 {/* <hr className="my-4" /> */}
                 <p className="mt-1 text-base text-gray-600">
-                    In this experiment, you will play a character on a dating app.
+                    In this experiment, you will play a character who is using a dating app to find their match. 
                 </p>
                 <hr className="my-4" />
                 <p className="mt-1 text-base text-gray-600">
-                    1. <strong>Character Selection</strong>: First, you will choose which character you want to play.
+                    1. <strong>Character Selection</strong>: First, you will choose a character to play.
                 </p>
                 <hr className="my-4" />
                 <p className="mt-1 text-base text-gray-600">
-                    2. <strong>Matching Rounds</strong>: You will then go through multiple rounds where you will be presented with pairs of characters, played by other participants. For each pair, select the character you prefer to match with.
+                    2. <strong>Matching</strong>: Then, you can decide which characters played by other participants you want to match with.
                 </p>
                 <hr className="my-4" />
                 <p className="mt-1 text-base text-gray-600">
-                    3. <strong>Recommendation System</strong>: A recommendation system will learn your preferences based on your selections.
+                    3. <strong>Recommendation System</strong>: Based on your likes, an algorithm will try to learn your preferences and show you better recommendations.
                 </p>
                 <hr className="my-4" />
                 <p className="mt-1 text-base text-gray-600">
-                    4. <strong>Feedback</strong>: At the end of the experiment, you will be asked to provide your opinions on the recommendation system.
+                    4. <strong>Feedback</strong>: Throughout the experiment, you will be asked to provide your opinions on the recommendations you are given.
                 </p>
                 <hr className="my-4" />
                 <div className="flex justify-center">

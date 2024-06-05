@@ -88,23 +88,6 @@ export function getJob(profileId) {
     return profile ? profile.job : "Job not found";
 }
 
-export function getRandomRecommendation(player, ownProfileID) {
-    const pastOpponentIDs = (player.get("opponentIDs") || []).map(id => parseInt(id));
-
-
-    const otherProfiles = profiles.filter(p => {
-        const profileID = parseInt(p.profile_ID);
-        return profileID !== parseInt(ownProfileID) && !pastOpponentIDs.includes(profileID);
-    });
-
-    if (otherProfiles.length === 0) {
-        return null; 
-    }
-
-    const randomIndex = Math.floor(Math.random() * otherProfiles.length);
-    return otherProfiles[randomIndex].profile_ID;
-}
-
 
 export function createProfile(profileId) {
     const name = getName(profileId);

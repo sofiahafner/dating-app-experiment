@@ -52,7 +52,7 @@ export function EndSurveyDatingAppUsage() {
     };
 
     useEffect(() => {
-        const factorsList = ["Political affiliation", "Race / Ethnicity", "Nationality", "Hobbies", "Income level", "Popularity on App", "Profession", "Education Level", "Relationship history", "Dietary preferences", "Height", "Number of children", "Pet ownership", "Language spoken", "Social media activity", "Physical Health", "Mental Health"];
+        const factorsList = ["Appearance", "Age", "Hobbies", "Profession", "Education Level", "Physical Health", "Ethnicity"];
         
         const allFactorsSelected = factorsList.every(factor => factors[`factor-${factor}`]);
         const allRecommendationsSelected = factorsList.every(factor => recommendations[`recommend-${factor}`]);
@@ -69,13 +69,16 @@ export function EndSurveyDatingAppUsage() {
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center overflow-auto">
-            <div className="py-8 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg flex flex-col space-y-6 overflow-y-auto" style={{ maxHeight: '90vh' }}>
+            <div className="py-8 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg flex flex-col space-y-6 overflow-y-auto" style={{ maxHeight: '90vh' }}>
                 <h1 className="text-2xl font-bold text-center">Dating App Usage Survey</h1>
+                <div className="bg-gray-100 p-4 rounded-lg">
+                    <p className="text-lg font-medium text-gray-700">You will now be asked questions about your personal experiences with dating apps, not specifically relating to the previous experiment.</p>
+                </div>
                 <form className="space-y-6 divide-y divide-gray-200" onSubmit={handleFormSubmit}>
                     
                     <div className="space-y-4">
                         <label className="block text-lg font-medium text-gray-700 py-4">Are you currently active on any dating apps?</label>
-                        {["I am currently active on dating apps.", "I am not currently active on dating apps but was in the past.", "I have never been active on a dating app", "Prefer not to answer"].map((option, idx) => (
+                        {["I am currently active on dating apps.", "I am not currently active on dating apps but was in the past.", "I have never been active on a dating app"].map((option, idx) => (
                             <div key={idx} className="flex items-start">
                                 <input
                                     id={`activeDating-${idx}`}
@@ -96,7 +99,7 @@ export function EndSurveyDatingAppUsage() {
                         <>
                             <div className="space-y-4 pt-4">
                                 <label className="block text-lg font-medium text-gray-700 py-4">If you are currently active on dating apps or have been in the past, how frequently do/did you use them?</label>
-                                {["Multiple times a day", "Daily", "A few times a week", "Once a week", "Less than once a week", "Prefer not to answer"].map((option, idx) => (
+                                {["Multiple times a day", "Daily", "A few times a week", "Once a week", "Less than once a week"].map((option, idx) => (
                                     <div key={idx} className="flex items-start">
                                         <input
                                             id={`frequency-${idx}`}
@@ -115,7 +118,7 @@ export function EndSurveyDatingAppUsage() {
 
                             <div className="space-y-4 pt-4">
                                 <label className="block text-lg font-medium text-gray-700 py-4">Which dating apps have you used before? (Check all that apply)</label>
-                                {["Tinder", "Bumble", "Hinge", "OkCupid", "Plenty of Fish (PoF)", "HER", "Coffee Meets Bagel", "eHarmony", "Grindr", "Other (please specify)", "Prefer not to answer"].map((option, idx) => (
+                                {["Tinder", "Bumble", "Hinge", "OkCupid", "Plenty of Fish (PoF)", "HER", "Coffee Meets Bagel", "eHarmony", "Grindr", "Other (please specify)"].map((option, idx) => (
                                     <div key={idx} className="flex items-start">
                                         <input
                                             id={`appsUsed-${idx}`}
@@ -139,16 +142,16 @@ export function EndSurveyDatingAppUsage() {
                                     <thead>
                                         <tr>
                                             <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Factor</th>
-                                            {["Very Important", "Quite Important", "Not Very Important", "Not Important", "Prefer not to Answer"].map((option, idx) => (
+                                            {["Very Important", "Quite Important", "Not Very Important", "Not Important", "Prefer not to answer"].map((option, idx) => (
                                                 <th key={idx} className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{option}</th>
                                             ))}
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
-                                        {["Political affiliation", "Race / Ethnicity", "Nationality", "Hobbies", "Income level", "Popularity on App", "Profession", "Education Level", "Relationship history", "Dietary preferences", "Height", "Number of children", "Pet ownership", "Language spoken", "Social media activity", "Physical Health", "Mental Health"].map((factor, idx) => (
+                                        {["Appearance", "Age", "Hobbies", "Profession", "Education Level", "Physical Health", "Ethnicity"].map((factor, idx) => (
                                             <tr key={idx}>
                                                 <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{factor}</td>
-                                                {["Very Important", "Quite Important", "Not Very Important", "Not Important", "Prefer not to Answer"].map((option, idy) => (
+                                                {["Very Important", "Quite Important", "Not Very Important", "Not Important", "Prefer not to answer"].map((option, idy) => (
                                                     <td key={idy} className="px-2 py-2 whitespace-nowrap">
                                                         <input
                                                             id={`factor-${factor}-${option}`}
@@ -174,16 +177,16 @@ export function EndSurveyDatingAppUsage() {
                             <thead>
                                 <tr>
                                     <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Factor</th>
-                                    {["Should definitely use", "Should maybe use", "Should maybe not use", "Should definitely not use", "Prefer not to Answer"].map((option, idx) => (
+                                    {["Should definitely use", "Should maybe use", "Should maybe not use", "Should definitely not use"].map((option, idx) => (
                                         <th key={idx} className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{option}</th>
                                     ))}
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {["Political affiliation", "Race / Ethnicity", "Nationality", "Hobbies", "Income level", "Popularity on App", "Profession", "Education Level", "Relationship history", "Dietary preferences", "Height", "Number of children", "Pet ownership", "Language spoken", "Social media activity", "Physical Health", "Mental Health"].map((factor, idx) => (
+                                {["Appearance", "Age", "Hobbies", "Profession", "Education Level", "Physical Health", "Ethnicity"].map((factor, idx) => (
                                     <tr key={idx}>
                                         <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{factor}</td>
-                                        {["Should definitely use", "Should maybe use", "Should maybe not use", "Should definitely not use", "Prefer not to Answer"].map((option, idy) => (
+                                        {["Should definitely use", "Should maybe use", "Should maybe not use", "Should definitely not use"].map((option, idy) => (
                                             <td key={idy} className="px-2 py-2 whitespace-nowrap">
                                                 <input
                                                     id={`recommend-${factor}-${option}`}

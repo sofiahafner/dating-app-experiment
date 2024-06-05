@@ -34,7 +34,7 @@ export function PickCharacterTraits() {
                         <div className="space-y-6 sm:space-y-5">
                             <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                                 <label htmlFor="glasses" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                Does your character wear glasses?
+                                Do you want your character to wear glasses?
                                 </label>
                                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                                     <select id="glasses" name="glasses" value={glasses} onChange={e => setGlasses(e.target.value)} className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
@@ -45,7 +45,7 @@ export function PickCharacterTraits() {
                                 </div>
 
                                 <label htmlFor="hair" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                Does your character have long or short hair?
+                                Do you want your character to have long or short hair?
                                 </label>
                                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                                     <select id="hair" name="hair" value={hair} onChange={e => setHair(e.target.value)} className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
@@ -56,7 +56,7 @@ export function PickCharacterTraits() {
                                 </div>
 
                                 <label htmlFor="beard" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                Does your character have a beard?
+                                Do you want your character to have a beard?
                                 </label>
                                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                                     <select id="beard" name="beard" value={beard} onChange={e => setBeard(e.target.value)} className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
@@ -69,7 +69,7 @@ export function PickCharacterTraits() {
 
                             <div className="sm:border-t sm:border-gray-200 sm:pt-5">
                                 <label htmlFor="hobby" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                                    What is your character's main hobby?
+                                    What do you want your character's main hobby to be?
                                 </label>
                                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                                     <select id="hobby" name="hobby" value={hobby} onChange={e => setHobby(e.target.value)} className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">

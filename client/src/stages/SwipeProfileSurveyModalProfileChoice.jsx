@@ -6,12 +6,7 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
     const player = usePlayer();
 
     const [attributes, setAttributes] = useState({
-        hair: '',
-        glasses: '',
-        beard: '',
-        facialExpression: '',
-        clothes: '',
-        pose: '',
+        appearance: '',
         age: '',
         hobbies: '',
         job: ''
@@ -41,8 +36,8 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center overflow-y-auto">
-            <div className="py-4 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg flex flex-col space-y-4">
-                <h1 className="text-2xl font-bold text-center">Please Answer the Following Question</h1>
+            <div className="py-4 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg flex flex-col space-y-4">
+                <h1 className="text-2xl font-bold text-center">Matching Choice Survey</h1>
                 <div className="flex flex-col space-y-8">
                     <div className="flex-2">
                         <h1 className="text-lg leading-6 font-medium text-gray-900">Reasons for Your Choice</h1>
@@ -55,21 +50,14 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
                                 <thead>
                                     <tr>
                                         <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Characteristic</th>
-                                        <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Chosen Character was Better</th>
-                                        <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Both About the Same</th>
-                                        <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Other Character was Better</th>
-                                        <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prefer not to say</th>
-                                        <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Not Applicable</th>
+                                        <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Chosen Better</th>
+                                        <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">About the Same</th>
+                                        <th className="px-2 py-2 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Other Better</th>
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
                                     {[
-                                        { id: 'hair', label: "Their Hair" },
-                                        { id: 'glasses', label: "Their Glasses" },
-                                        { id: 'beard', label: "Their Beard" },
-                                        { id: 'facialExpression', label: "Their Facial Expression" },
-                                        { id: 'clothes', label: "Their Clothes" },
-                                        { id: 'pose', label: "Their Pose" },
+                                        { id: 'appearance', label: "Their Appearance" },
                                         { id: 'age', label: "Their Age" },
                                         { id: 'hobbies', label: "Their Hobbies" },
                                         { id: 'job', label: "Their Job" },
@@ -103,24 +91,6 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
                                                     onChange={handleAttributeChange}
                                                 />
                                             </td>
-                                            <td className="px-2 py-2 whitespace-nowrap">
-                                                <input
-                                                    type="radio"
-                                                    name={attr.id}
-                                                    value="preferNotToSay"
-                                                    className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                                                    onChange={handleAttributeChange}
-                                                />
-                                            </td>
-                                            <td className="px-2 py-2 whitespace-nowrap">
-                                                <input
-                                                    type="radio"
-                                                    name={attr.id}
-                                                    value="notApplicable"
-                                                    className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                                                    onChange={handleAttributeChange}
-                                                />
-                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -128,7 +98,7 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
                         </div>
                     </div>
 
-                    <div className="flex flex-row justify-between space-x-8">
+                    <div className="flex flex-row justify-between space-x-4">
                         <div className="flex-1 flex flex-col items-center">
                             <div className="text-lg leading-6 font-medium text-gray-900">Chosen Character</div>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', textAlign: 'left' }}>

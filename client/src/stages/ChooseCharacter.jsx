@@ -63,14 +63,14 @@ export function ChooseCharacter() {
         <div style={{ display: 'flex', height: '100%' }}>
             <div style={{ width: '20%', background: '#282828', padding: '20px', boxSizing: 'border-box' }}>
                 <div style={{ color: '#DADADA', fontSize: 22, fontFamily: 'Inter', fontWeight: '700' }}>Instructions</div>
-                <div style={{ color: '#DADADA', fontSize: 16, fontFamily: 'Inter', fontWeight: '400' }}>Select a character you want to play by clicking on the "Play this Character" button under their profile. Use the form below to change your previous selections.</div>
+                <div style={{ color: '#DADADA', fontSize: 16, fontFamily: 'Inter', fontWeight: '400' }}>Select the character you want to play by clicking the "Play this Character" button under their profile. Use the form below if you want to change your previous selections.</div>
                 <div className="mt-12 space-y-8 divide-y divide-gray-200">
                     <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
                         <div>
                             <div className="space-y-6 sm:space-y-5">
                                 <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                                     <label htmlFor="glasses" className="block text-sm font-medium" style={{ color: '#DADADA' }}>
-                                    Does your character wear glasses?
+                                    Glasses
                                     </label>
                                     <div className="mt-1 sm:mt-0 sm:col-span-2">
                                         <select id="glasses" name="glasses" value={glasses} onChange={e => setGlasses(e.target.value)} className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
@@ -80,7 +80,7 @@ export function ChooseCharacter() {
                                     </div>
 
                                     <label htmlFor="hair" className="block text-sm font-medium" style={{ color: '#DADADA' }}>
-                                    Does your character have long or short hair?
+                                    Hair
                                     </label>
                                     <div className="mt-1 sm:mt-0 sm:col-span-2">
                                         <select id="hair" name="hair" value={hair} onChange={e => setHair(e.target.value)} className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
@@ -90,7 +90,7 @@ export function ChooseCharacter() {
                                     </div>
 
                                     <label htmlFor="beard" className="block text-sm font-medium" style={{ color: '#DADADA' }}>
-                                    Does your character have a beard?
+                                    Beard
                                     </label>
                                     <div className="mt-1 sm:mt-0 sm:col-span-2">
                                         <select id="beard" name="beard" value={beard} onChange={e => setBeard(e.target.value)} className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">

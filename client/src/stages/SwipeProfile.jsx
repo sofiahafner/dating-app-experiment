@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePlayer } from '@empirica/core/player/classic/react';
-import { createProfile, getRandomRecommendation } from '../utils.jsx';
+import { getRandomRecommendation } from '../RecommendationAlgorithms.js';
+import { createProfile } from '../utils.jsx';
 import SwipeProfileSurveyModalProfileChoice from './SwipeProfileSurveyModalProfileChoice.jsx';
 import SwipeProfileSurveyModalRecommendationSystem from './SwipeProfileSurveyModalRecommendationSystem.jsx';
 
@@ -20,7 +21,7 @@ export function SwipeProfile() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setButtonsEnabled(true);
-        }, 2000);
+        }, 1000);
 
         return () => clearTimeout(timer);
     }, []);
