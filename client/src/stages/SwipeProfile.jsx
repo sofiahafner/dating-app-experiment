@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { usePlayer } from '@empirica/core/player/classic/react';
-import { getRandomRecommendation } from '../RecommendationAlgorithms.js';
+import { getRandomRecommendation, getBaselineRecommendation } from '../RecommendationAlgorithms.js';
 import { createProfile } from '../utils.jsx';
 import SwipeProfileSurveyModalProfileChoice from './SwipeProfileSurveyModalProfileChoice.jsx';
 import SwipeProfileSurveyModalRecommendationSystem from './SwipeProfileSurveyModalRecommendationSystem.jsx';
@@ -15,8 +15,13 @@ export function SwipeProfile() {
     const [showRecommendationModal, setShowRecommendationModal] = useState(false);
 
     const ownProfileId = player.get("chosenProfile");
-    const [otherProfileId1, setOtherProfileId1] = useState(getRandomRecommendation(player, ownProfileId));
-    const [otherProfileId2, setOtherProfileId2] = useState(getRandomRecommendation(player, ownProfileId));
+    const [otherProfiles, setOtherProfiles] = useState([]);
+
+    useEffect(() => {
+        const [profile1, profile2] = getBaselineRecommendation(player, ownProfileId);
+        setOtherProfiles([profile1, profile2]);
+        console.log("Recommended profiles: ", profile1, profile2);
+    }, [ownProfileId, player]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -28,7 +33,13 @@ export function SwipeProfile() {
 
     const handleSelectProfile = (likedProfile, dislikedProfile) => {
         if (buttonsEnabled) {
-            
+            // Store selected and not selected profile IDs in the player object
+            player.round.set("likedProfile", likedProfile);
+            player.round.set("dislikedProfile", dislikedProfile);
+
+            const pastOpponentIDs = player.get("opponentIDs") || [];
+            player.set("opponentIDs", [...pastOpponentIDs, likedProfile, dislikedProfile]);
+
             if ((player_round % 10 === 0) && (player_round !== 0)) {
                 setShowRecommendationModal(true);
                 setSelectedProfile({ likedProfile, dislikedProfile });
@@ -73,6 +84,10 @@ export function SwipeProfile() {
         transition: 'fill 0.3s ease',
     };
 
+    if (otherProfiles.length < 2) {
+        return <div>Loading...</div>; // or any other loading indicator
+    }
+
     return (
         <div style={{ width: '100%', height: '100%', position: 'relative', background: 'white', display: 'flex' }}>
             <div style={{
@@ -103,10 +118,10 @@ export function SwipeProfile() {
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
                     <div style={{ margin: '0 20px', textAlign: 'center' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', textAlign: 'left' }}>
-                            {createProfile(otherProfileId1)}
+                            {createProfile(otherProfiles[0])}
                         </div>
                         <button
-                            onClick={() => handleSelectProfile(otherProfileId1, otherProfileId2)}
+                            onClick={() => handleSelectProfile(otherProfiles[0], otherProfiles[1])}
                             style={{
                                 border: 'none',
                                 background: 'none',
@@ -129,10 +144,10 @@ export function SwipeProfile() {
                     </div>
                     <div style={{ margin: '0 20px', textAlign: 'center' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', textAlign: 'left' }}>
-                            {createProfile(otherProfileId2)}
+                            {createProfile(otherProfiles[1])}
                         </div>
                         <button
-                            onClick={() => handleSelectProfile(otherProfileId2, otherProfileId1)}
+                            onClick={() => handleSelectProfile(otherProfiles[1], otherProfiles[0])}
                             style={{
                                 border: 'none',
                                 background: 'none',
@@ -159,16 +174,16 @@ export function SwipeProfile() {
                 <SwipeProfileSurveyModalProfileChoice
                     onSubmit={handleSurveySubmit}
                     onClose={() => setShowSurvey(false)}
-                    chosenProfile={selectedProfile.likedProfile}
-                    unchosenProfile={selectedProfile.dislikedProfile}
+                    chosenProfile={player.round.get("likedProfile")}
+                    unchosenProfile={player.round.get("dislikedProfile")}
                 />
             )}
             {showRecommendationModal && (
                 <SwipeProfileSurveyModalRecommendationSystem
                     onSubmit={handleRecommendationSubmit}
                     onClose={() => setShowRecommendationModal(false)}
-                    chosenProfile={selectedProfile.likedProfile}
-                    unchosenProfile={selectedProfile.dislikedProfile}
+                    chosenProfile={player.round.get("likedProfile")}
+                    unchosenProfile={player.round.get("dislikedProfile")}
                 />
             )}
         </div>

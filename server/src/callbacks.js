@@ -20,7 +20,6 @@ Empirica.onGameStart(({ game }) => {
     });
 
     round.addStage({name: "swipeProfile", duration:3000});
-    // round.addStage({name: "Results", duration: 1});
   }
   const after_rounds = game.addRound({
     name : 'afterRounds'
@@ -50,29 +49,32 @@ Empirica.onStageStart(({ stage }) => {
 
 
 
-Empirica.onStageEnded(({ stage}) => {
+Empirica.onStageEnded(({ stage }) => {
   if (stage.get("name") === "swipeProfile") {
-    const players = stage.currentGame.players
+    const players = stage.currentGame.players;
 
     for (const player of players) {
-      const player_opponentID = player.round.get("opponentId");
-      const currentOpponentIds = player.get("opponentIDs") || [];
-      player.set("opponentIDs", [...currentOpponentIds, player_opponentID]);
+      const likedProfile = player.round.get("likedProfile");
+      const dislikedProfile = player.round.get("dislikedProfile");
+
+      const currentLikedProfiles = player.get("likedProfiles") || [];
+      const currentDislikedProfiles = player.get("dislikedProfiles") || [];
+
+      player.set("likedProfiles", [...currentLikedProfiles, likedProfile]);
+      player.set("dislikedProfiles", [...currentDislikedProfiles, dislikedProfile]);
     }
   }
 
-    if (stage.get("name") === "chooseCharacter") {
-      const players = stage.currentGame.players
-  
-      for (const player of players) {
-        const playerchosenProfile = player.round.get("chosenProfile");
-        // const currentOpponentIds = player.get("opponentIDs") || [];
-        player.set("chosenProfile", playerchosenProfile);
-      }
+  if (stage.get("name") === "chooseCharacter") {
+    const players = stage.currentGame.players;
 
-    // chooseCharacter
+    for (const player of players) {
+      const chosenProfile = player.round.get("chosenProfile");
+      player.set("chosenProfile", chosenProfile);
+    }
   }
 });
+
 
 
 
