@@ -1,4 +1,6 @@
 import { ClassicListenersCollector } from "@empirica/core/admin/classic";
+import { getRandomRecommendation, getBaselineRecommendation } from './RecommendationAlgorithms.js';
+
 export const Empirica = new ClassicListenersCollector();
 
 Empirica.onGameStart(({ game }) => {
@@ -62,6 +64,7 @@ Empirica.onStageEnded(({ stage }) => {
 
       player.set("likedProfiles", [...currentLikedProfiles, likedProfile]);
       player.set("dislikedProfiles", [...currentDislikedProfiles, dislikedProfile]);
+      player.set('nextRecommendations', getRandomRecommendation(player))
     }
   }
 

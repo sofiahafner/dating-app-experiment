@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { usePlayer } from '@empirica/core/player/classic/react';
-import { getRandomRecommendation, getBaselineRecommendation } from '../RecommendationAlgorithms.js';
 import { createProfile } from '../utils.jsx';
 import SwipeProfileSurveyModalProfileChoice from './SwipeProfileSurveyModalProfileChoice.jsx';
 import SwipeProfileSurveyModalRecommendationSystem from './SwipeProfileSurveyModalRecommendationSystem.jsx';
@@ -25,7 +24,8 @@ export function SwipeProfile() {
     };
 
     useEffect(() => {
-        const [profile1, profile2] = getRandomRecommendation(player, ownProfileId);
+        // const [profile1, profile2] = getRandomRecommendation(player, ownProfileId);
+        const [profile1, profile2] = player.get('nextRecommendations')
         setOtherProfiles([profile1, profile2]);
         console.log("Recommended profiles: ", profile1, profile2);
     }, [ownProfileId, player]);

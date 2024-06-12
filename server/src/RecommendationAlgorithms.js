@@ -1,4 +1,4 @@
-import profiles from '../data/peep_profiles.json';
+import profiles from '../../client/data/peep_profiles.json'
 
 const calculateUserPreferences = (likedProfiles, dislikedProfiles) => {
     let preferences = { beard: 0, noBeard: 0, shortHair: 0, longHair: 0 };
@@ -52,12 +52,12 @@ export function getBaselineRecommendation(player, ownProfileID) {
     return otherProfiles.map(p => p.profile_ID);
 }
 
-export function getRandomRecommendation(player, ownProfileID) {
+export function getRandomRecommendation(player) {
+    const ownProfileID = player.get("profile_ID")
     const recommendations = getBaselineRecommendation(player, ownProfileID);
     if (recommendations.length <= 2) {
         return recommendations;
     }
-    console.log(recommendations)
 
     const randomProfile1 = recommendations[Math.floor(Math.random() * recommendations.length)];
     const remainingProfiles = recommendations.filter(id => id !== randomProfile1);
