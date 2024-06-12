@@ -7,7 +7,7 @@ import SwipeProfileSurveyModalRecommendationSystem from './SwipeProfileSurveyMod
 
 export function SwipeProfile() {
     const player = usePlayer();
-    const player_round = player.get("roundsPlayed") + 1 || 0;
+    const player_round = player.get("roundsPlayed") || 0;
     const [buttonsEnabled, setButtonsEnabled] = useState(false);
     const [showSurvey, setShowSurvey] = useState(false);
     const [selectedProfile, setSelectedProfile] = useState(null);
@@ -16,9 +16,16 @@ export function SwipeProfile() {
 
     const ownProfileId = player.get("chosenProfile");
     const [otherProfiles, setOtherProfiles] = useState([]);
+    const [sidebarWidth, setSidebarWidth] = useState(300); // initial sidebar width
+
+    const updateSidebarWidth = () => {
+        const minWidth = 270; // minimum width for the sidebar
+        const newWidth = Math.max(window.innerWidth * 0.2, minWidth);
+        setSidebarWidth(newWidth);
+    };
 
     useEffect(() => {
-        const [profile1, profile2] = getBaselineRecommendation(player, ownProfileId);
+        const [profile1, profile2] = getRandomRecommendation(player, ownProfileId);
         setOtherProfiles([profile1, profile2]);
         console.log("Recommended profiles: ", profile1, profile2);
     }, [ownProfileId, player]);
@@ -31,9 +38,14 @@ export function SwipeProfile() {
         return () => clearTimeout(timer);
     }, []);
 
+    useEffect(() => {
+        window.addEventListener('resize', updateSidebarWidth);
+        updateSidebarWidth();
+        return () => window.removeEventListener('resize', updateSidebarWidth);
+    }, []);
+
     const handleSelectProfile = (likedProfile, dislikedProfile) => {
         if (buttonsEnabled) {
-            // Store selected and not selected profile IDs in the player object
             player.round.set("likedProfile", likedProfile);
             player.round.set("dislikedProfile", dislikedProfile);
 
@@ -91,7 +103,7 @@ export function SwipeProfile() {
     return (
         <div style={{ width: '100%', height: '100%', position: 'relative', background: 'white', display: 'flex' }}>
             <div style={{
-                width: '20%',
+                width: `${sidebarWidth}px`,
                 height: '100%',
                 background: '#1c1c1c',
                 padding: '20px',
@@ -107,17 +119,17 @@ export function SwipeProfile() {
                 <div style={{ color: '#FFFFFF', fontSize: 22, fontFamily: 'Inter', fontWeight: '700', textAlign: 'center' }}>
                     This is your character
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', margin: '0 auto' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '450px', margin: '0 auto' }}>
                     {createProfile(ownProfileId)}
                 </div>
             </div>
-            <div style={{ width: '80%', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', flexDirection: 'column' }}>
+            <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', flexDirection: 'column' }}>
                 <div style={{ marginBottom: '20px', color: '#282828', fontSize: 18, fontFamily: 'Inter', fontWeight: '700' }}>
                     Click on the heart of the profile you think would be a better match for your character
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
                     <div style={{ margin: '0 20px', textAlign: 'center' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', textAlign: 'left' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', minWidth: '270px', width: '100%', height: '450px', textAlign: 'left' }}>
                             {createProfile(otherProfiles[0])}
                         </div>
                         <button
@@ -143,7 +155,7 @@ export function SwipeProfile() {
                         </button>
                     </div>
                     <div style={{ margin: '0 20px', textAlign: 'center' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', textAlign: 'left' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', minWidth: '270px', width: '100%', height: '450px', textAlign: 'left' }}>
                             {createProfile(otherProfiles[1])}
                         </div>
                         <button
