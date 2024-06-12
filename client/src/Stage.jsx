@@ -11,10 +11,9 @@ import { SwipeProfile } from "./stages/SwipeProfile.jsx";
 import { Results } from "./stages/Results.jsx";
 import { PickCharacterTraits } from "./stages/PickCharacterTraits.jsx";
 import { ChooseCharacter } from "./stages/ChooseCharacter.jsx";
-import {Explanation} from "./stages/Explanation.jsx"
-import {EndSurveyDatingAppUsage} from "./stages/EndSurveyDatingAppUsage.jsx"
-import {EndSurveyRecommendationSystem} from "./stages/EndSurveyRecommendationSystem.jsx"
-
+import { Explanation } from "./stages/Explanation.jsx";
+import { EndSurveyDatingAppUsage } from "./stages/EndSurveyDatingAppUsage.jsx";
+import { EndSurveyRecommendationSystem } from "./stages/EndSurveyRecommendationSystem.jsx";
 
 export function Stage() {
   const player = usePlayer();
@@ -34,25 +33,24 @@ export function Stage() {
     );
   }
 
-  switch (stage.get("name")){
-    case "explanation":
-        return <Explanation/>
-    case "pickCharacterTraits":
-      return <PickCharacterTraits/>
-    case "swipeProfile":
-      return <SwipeProfile/>
-    case "chooseCharacter":
-      return <ChooseCharacter/>
-    case "endSurveyDatingAppUsage":
-      return <EndSurveyDatingAppUsage/>
-    case "endSurveyRecommendationSystem":
-      return <EndSurveyRecommendationSystem/>
-    // case "Results":
-    //     return <Results/>
-    default:
-      console.log("AAA")
-      console.log(stage.get("name"))
-      return <p>Loading...</p>
-  }
+  const stageName = stage.get("name");
 
+  switch (stageName) {
+    case "explanation":
+      return <Explanation />;
+    case "pickCharacterTraits":
+      return <PickCharacterTraits />;
+    case stageName.startsWith("swipeProfile") && stageName:
+      return <SwipeProfile />;
+    case "chooseCharacter":
+      return <ChooseCharacter />;
+    case "endSurveyDatingAppUsage":
+      return <EndSurveyDatingAppUsage />;
+    case "endSurveyRecommendationSystem":
+      return <EndSurveyRecommendationSystem />;
+    default:
+      console.log("AAA");
+      console.log(stageName);
+      return <p>Loading...</p>;
+  }
 }

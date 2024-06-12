@@ -26,7 +26,7 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
 
     const handleSubmit = () => {
         Object.entries(attributes).forEach(([key, value]) => {
-            player.round.set(`surveyAttribute${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
+            player.round.set(`SwipeProfileChoiceSurvey_Attribute${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
         });
         player.stage.set("submit", true);
 

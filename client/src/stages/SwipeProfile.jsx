@@ -27,7 +27,6 @@ export function SwipeProfile() {
         // const [profile1, profile2] = getRandomRecommendation(player, ownProfileId);
         const [profile1, profile2] = player.get('nextRecommendations')
         setOtherProfiles([profile1, profile2]);
-        console.log("Recommended profiles: ", profile1, profile2);
     }, [ownProfileId, player]);
 
     useEffect(() => {

@@ -5,14 +5,14 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
     const player = usePlayer();
 
     const [reasons, setReasons] = useState({
-        systemImprovement: '',
-        variety: ''
+        recommendationSystemImprovement: '',
+        profileVariety: ''
     });
 
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
     useEffect(() => {
-        const isRadioSelected = reasons.systemImprovement !== '' && reasons.variety !== '';
+        const isRadioSelected = reasons.recommendationSystemImprovement !== '' && reasons.profileVariety !== '';
         setIsSubmitDisabled(!isRadioSelected);
     }, [reasons]);
 
@@ -22,9 +22,8 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
     };
 
     const handleSubmit = () => {
-        Object.entries(reasons).forEach(([key, value]) => {
-            player.round.set(`survey${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
-        });
+        player.round.set("SwipeProfileRecommendationSurvey_Improvement", reasons.recommendationSystemImprovement);
+        player.round.set("SwipeProfileRecommendationSurvey_Variety", reasons.profileVariety);
         player.stage.set("submit", true);
 
         onSubmit(reasons);
@@ -44,66 +43,66 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
                 <div className="mt-6 space-y-4">
                     <div className="flex items-start">
                         <input
-                            id="systemImprovement1"
-                            name="systemImprovement"
+                            id="recommendationSystemImprovement1"
+                            name="recommendationSystemImprovement"
                             type="radio"
                             value="better"
                             className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
                             onChange={handleRadioChange}
                         />
-                        <label htmlFor="systemImprovement1" className="ml-3 text-sm text-gray-700">
+                        <label htmlFor="recommendationSystemImprovement1" className="ml-3 text-sm text-gray-700">
                             Yes, the recommendations are better now
                         </label>
                     </div>
                     <div className="flex items-start">
                         <input
-                            id="systemImprovement2"
-                            name="systemImprovement"
+                            id="recommendationSystemImprovement2"
+                            name="recommendationSystemImprovement"
                             type="radio"
                             value="somewhat"
                             className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
                             onChange={handleRadioChange}
                         />
-                        <label htmlFor="systemImprovement2" className="ml-3 text-sm text-gray-700">
+                        <label htmlFor="recommendationSystemImprovement2" className="ml-3 text-sm text-gray-700">
                             Somewhat, with minor improvements
                         </label>
                     </div>
                     <div className="flex items-start">
                         <input
-                            id="systemImprovement3"
-                            name="systemImprovement"
+                            id="recommendationSystemImprovement3"
+                            name="recommendationSystemImprovement"
                             type="radio"
                             value="no"
                             className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
                             onChange={handleRadioChange}
                         />
-                        <label htmlFor="systemImprovement3" className="ml-3 text-sm text-gray-700">
+                        <label htmlFor="recommendationSystemImprovement3" className="ml-3 text-sm text-gray-700">
                             No, no significant changes
                         </label>
                     </div>
                     <div className="flex items-start">
                         <input
-                            id="systemImprovement4"
-                            name="systemImprovement"
+                            id="recommendationSystemImprovement4"
+                            name="recommendationSystemImprovement"
                             type="radio"
                             value="worse"
                             className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
                             onChange={handleRadioChange}
                         />
-                        <label htmlFor="systemImprovement4" className="ml-3 text-sm text-gray-700">
+                        <label htmlFor="recommendationSystemImprovement4" className="ml-3 text-sm text-gray-700">
                             The recommendations are worse
                         </label>
                     </div>
                     <div className="flex items-start">
                         <input
-                            id="systemImprovement5"
-                            name="systemImprovement"
+                            id="recommendationSystemImprovement5"
+                            name="recommendationSystemImprovement"
                             type="radio"
                             value="notSure"
                             className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
                             onChange={handleRadioChange}
                         />
-                        <label htmlFor="systemImprovement5" className="ml-3 text-sm text-gray-700">
+                        <label htmlFor="recommendationSystemImprovement5" className="ml-3 text-sm text-gray-700">
                             Not sure
                         </label>
                     </div>
@@ -117,53 +116,53 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
                 <div className="mt-6 space-y-4">
                     <div className="flex items-start">
                         <input
-                            id="variety1"
-                            name="variety"
+                            id="profileVariety1"
+                            name="profileVariety"
                             type="radio"
                             value="tooMuch"
                             className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
                             onChange={handleRadioChange}
                         />
-                        <label htmlFor="variety1" className="ml-3 text-sm text-gray-700">
+                        <label htmlFor="profileVariety1" className="ml-3 text-sm text-gray-700">
                             Too much variety
                         </label>
                     </div>
                     <div className="flex items-start">
                         <input
-                            id="variety2"
-                            name="variety"
+                            id="profileVariety2"
+                            name="profileVariety"
                             type="radio"
                             value="goodAmount"
                             className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
                             onChange={handleRadioChange}
                         />
-                        <label htmlFor="variety2" className="ml-3 text-sm text-gray-700">
+                        <label htmlFor="profileVariety2" className="ml-3 text-sm text-gray-700">
                             Good amount of variety
                         </label>
                     </div>
                     <div className="flex items-start">
                         <input
-                            id="variety3"
-                            name="variety"
+                            id="profileVariety3"
+                            name="profileVariety"
                             type="radio"
                             value="tooLittle"
                             className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
                             onChange={handleRadioChange}
                         />
-                        <label htmlFor="variety3" className="ml-3 text-sm text-gray-700">
+                        <label htmlFor="profileVariety3" className="ml-3 text-sm text-gray-700">
                             Too little variety
                         </label>
                     </div>
                     <div className="flex items-start">
                         <input
-                            id="variety4"
-                            name="variety"
+                            id="profileVariety4"
+                            name="profileVariety"
                             type="radio"
                             value="notSure"
                             className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
                             onChange={handleRadioChange}
                         />
-                        <label htmlFor="variety4" className="ml-3 text-sm text-gray-700">
+                        <label htmlFor="profileVariety4" className="ml-3 text-sm text-gray-700">
                             Not sure
                         </label>
                     </div>

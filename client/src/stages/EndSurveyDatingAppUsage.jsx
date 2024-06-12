@@ -13,16 +13,20 @@ export function EndSurveyDatingAppUsage() {
     const handleFormSubmit = (e) => {
         e.preventDefault();
 
-        player.round.set("activeOnDatingApps", activeOnDatingApps);
-        player.round.set("frequency", frequency);
-        player.round.set("appsUsed", appsUsed);
+        player.round.set("EndDatingAppSurvey_activeOnDatingApps", activeOnDatingApps);
+        player.round.set("EndDatingAppSurvey_frequencyDatingAppUsage", frequency);
+        player.round.set("EndDatingAppSurvey_datingAppsUsed", appsUsed);
+
+        // Object.entries(attributes).forEach(([key, value]) => {
+        //     player.round.set(`CharacterChoice_Similarity_${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
+        // });
         
         Object.entries(factors).forEach(([key, value]) => {
-            player.round.set(key, value);
+            player.round.set(`EndDatingAppSurvey_PersonalInfluenceFactors${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
         });
 
         Object.entries(recommendations).forEach(([key, value]) => {
-            player.round.set(key, value);
+            player.round.set(`EndDatingAppSurvey_AlgorithmShouldUse${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
         });
 
         player.stage.set("submit", true);

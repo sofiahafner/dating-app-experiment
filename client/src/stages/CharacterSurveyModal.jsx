@@ -39,10 +39,10 @@ function CharacterSurveyModal({ onSubmit, onClose, profile }) {
 
     const handleSubmit = () => {
         Object.entries(attributes).forEach(([key, value]) => {
-            player.round.set(`chosenCharacter${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
+            player.round.set(`CharacterChoice_Similarity_${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
         });
         Object.entries(influences).forEach(([key, value]) => {
-            player.round.set(`chosenCharacterInfluence${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
+            player.round.set(`CharacterChoice_Influence_${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
         });
         player.stage.set("submit", true);
 

@@ -14,13 +14,13 @@ export function EndSurveyRecommendationSystem() {
         e.preventDefault();
         // Save experience attributes
         Object.entries(experienceAttributes).forEach(([key, value]) => {
-            player.round.set(key, value);
+            player.round.set(`EndRecSystemSurvey_algorithmLearnt${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
         });
         // Save other survey responses
-        player.round.set('systemVariety', systemVariety);
-        player.round.set('recommendationDiversity', recommendationDiversity);
-        player.round.set('recommendationQuality', recommendationQuality);
-        player.round.set('additionalComments', additionalComments);
+        player.round.set('EndRecSystemSurvey_systemVariety', systemVariety);
+        player.round.set('EndRecSystemSurvey_recommendationDiversity', recommendationDiversity);
+        player.round.set('EndRecSystemSurvey_recommendationQuality', recommendationQuality);
+        player.round.set('EndRecSystemSurvey_additionalComments', additionalComments);
         player.stage.set("submit", true);
     };
 
