@@ -81,6 +81,11 @@ export function getJob(profileId) {
     return profile ? profile.job : "Job not found";
 }
 
+export function getAdditionalInfo(profileId) {
+    const profile = findProfileById(profileId);
+    return profile ? profile.body_has_color.toString()  : "Face Mood not found";
+}
+
 
 export function createProfile(profileId) {
     const name = getName(profileId);
@@ -180,11 +185,11 @@ export function createProfile(profileId) {
                     face={faceDetails} 
                     beard={beardDetails} 
                     accessory={accessoryDetails} 
-                    style={{ width: '100%', height: '100%' }} // Make the Effigy fit the container
+                    style={{ width: '100%', height: '100%' }}
                 />
             </div>
             <div style={styles.textContainer}>
-                <div style={styles.textStyle}>Age: <span style={styles.answerTextStyle}>{profileId}</span></div>
+                <div style={styles.textStyle}>Age: <span style={styles.answerTextStyle}>{age}</span></div>
                 <div style={styles.textStyle}>Hobbies: <span style={styles.answerTextStyle}>{hobby1}, {hobby2}</span></div>
                 {/* <div style={styles.textStyle}>Hobbies:</div>
                 <div style={styles.aboutTextStyle}>{hobby1}, {hobby2}</div> */}
