@@ -7,6 +7,9 @@ import SwipeProfileSurveyModalRecommendationSystem from './SwipeProfileSurveyMod
 export function SwipeProfile() {
     const player = usePlayer();
     const player_round = player.get("roundsPlayed") || 0;
+    console.log('roundsPlayed')
+    console.log(player_round)
+
     const [buttonsEnabled, setButtonsEnabled] = useState(false);
     const [showSurvey, setShowSurvey] = useState(false);
     const [selectedProfile, setSelectedProfile] = useState(null);
@@ -14,6 +17,8 @@ export function SwipeProfile() {
     const [showRecommendationModal, setShowRecommendationModal] = useState(false);
 
     const ownProfileId = player.get("chosenProfile");
+    console.log('ownProfileId')
+    console.log(ownProfileId)
     const [otherProfiles, setOtherProfiles] = useState([]);
     const [sidebarWidth, setSidebarWidth] = useState(300); // initial sidebar width
 
@@ -26,6 +31,10 @@ export function SwipeProfile() {
     useEffect(() => {
         // const [profile1, profile2] = getRandomRecommendation(player, ownProfileId);
         const [profile1, profile2] = player.get('nextRecommendations')
+        console.log("profile1")
+        console.log(profile1)
+        console.log("profile2")
+        console.log(profile2)
         setOtherProfiles([profile1, profile2]);
     }, [ownProfileId, player]);
 

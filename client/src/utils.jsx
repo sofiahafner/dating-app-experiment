@@ -1,18 +1,11 @@
 // utils.jsx
 // import peepProfiles from '../data/peep_profiles.json';
 import profiles from '../data/peep_profiles.json';
-import profile_bios from '../data/profile_bios.json';
 import Peep from 'react-peeps';
 import  { useState, useEffect} from 'react';
 import { Effigy } from '../../client/open-peeps/lib/Effigy.tsx';
 
-export function getProfileBio(profileId) {
-    
-    // Decrement the profileId and convert it to a string;
 
-    // Access the profile bio using the adjusted profile ID
-    return profile_bios[profileId] || null;
-}
 
 export function findProfileById(profileId) {
     return profiles.find(p => parseInt(p.profile_ID) === parseInt(profileId));
@@ -191,7 +184,7 @@ export function createProfile(profileId) {
                 />
             </div>
             <div style={styles.textContainer}>
-                <div style={styles.textStyle}>Age: <span style={styles.answerTextStyle}>{age}</span></div>
+                <div style={styles.textStyle}>Age: <span style={styles.answerTextStyle}>{profileId}</span></div>
                 <div style={styles.textStyle}>Hobbies: <span style={styles.answerTextStyle}>{hobby1}, {hobby2}</span></div>
                 {/* <div style={styles.textStyle}>Hobbies:</div>
                 <div style={styles.aboutTextStyle}>{hobby1}, {hobby2}</div> */}

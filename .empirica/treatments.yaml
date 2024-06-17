@@ -1,18 +1,3 @@
-# factors:
-#   - desc: playerCount determines the number of Players are in a Game.
-#     name: playerCount
-#     values:
-#       - value: 1
-#   - desc: numSwipes determines the number of Swipes in a Game.
-#     name: numSwipes
-#     values:
-#       - value: 10
-# treatments:
-#   - desc: "Random Recommendations"
-#     name: Random
-#     factors:
-#       playerCount: 1
-#       numSwipes : 10
 factors:
   - desc: playerCount determines the number of Players are in a Game.
     name: playerCount
@@ -28,14 +13,28 @@ factors:
       - value: 8
       - value: 13
       - value: 50
+  - desc: recAlgorithm determines which recommendation algorithm is used.
+    name: recAlgorithm
+    values:
+      - value: random
+      - value: elo
+      - value: siameseBandit
 treatments:
-  - desc: "Single-player Game"
+  - desc: "Control with Random Recommendations"
     factors:
       playerCount: 1
       numSwipes : 50
-    name: Solo
-  - desc: "Single-player Game Test Short"
+      recAlgorithm : random
+    name: Control
+  - desc: "Treatment with Elo Recommendations"
     factors:
       playerCount: 1
-      numSwipes : 15
-    name: SoloTestShort
+      numSwipes : 50
+      recAlgorithm : elo
+    name: Elo
+  - desc: "Treatment with Siamese Bandit Recommendations"
+    factors:
+      playerCount: 1
+      numSwipes : 50
+      recAlgorithm : siameseBandit
+    name: SiameseBandit

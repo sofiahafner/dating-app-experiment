@@ -1,0 +1,20 @@
+[
+  {
+    "participantID": "01J0K3W63VQV5CWNH58C7AHD1F",
+    "ownProfileID": 29,
+    "recommendedProfiles": [
+      null,
+      null
+    ],
+    "likedProfile": 171,
+    "dislikedProfile": 129
+  },
+  {
+    "participantID": "01J0K512W3ZYT115M65GHR8VGY",
+    "ownProfileID": null,
+    "recommendedProfiles": [
+      132,
+      137
+    ]
+  }
+]
