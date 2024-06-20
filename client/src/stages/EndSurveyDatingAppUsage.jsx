@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 export function EndSurveyDatingAppUsage() {
     const player = usePlayer();
     const [activeOnDatingApps, setActiveOnDatingApps] = useState('');
-    const [frequency, setFrequency] = useState('');
     const [appsUsed, setAppsUsed] = useState([]);
     const [factors, setFactors] = useState({});
     const [recommendations, setRecommendations] = useState({});
@@ -13,20 +12,15 @@ export function EndSurveyDatingAppUsage() {
     const handleFormSubmit = (e) => {
         e.preventDefault();
 
-        player.round.set("EndDatingAppSurvey_activeOnDatingApps", activeOnDatingApps);
-        player.round.set("EndDatingAppSurvey_frequencyDatingAppUsage", frequency);
-        player.round.set("EndDatingAppSurvey_datingAppsUsed", appsUsed);
+        player.stage.set("EndDatingAppSurvey_activeOnDatingApps", activeOnDatingApps);
+        player.stage.set("EndDatingAppSurvey_datingAppsUsed", appsUsed);
 
-        // Object.entries(attributes).forEach(([key, value]) => {
-        //     player.round.set(`CharacterChoice_Similarity_${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
-        // });
-        
         Object.entries(factors).forEach(([key, value]) => {
-            player.round.set(`EndDatingAppSurvey_PersonalInfluenceFactors${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
+            player.stage.set(`EndDatingAppSurvey_PersonalInfluenceFactors${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
         });
 
         Object.entries(recommendations).forEach(([key, value]) => {
-            player.round.set(`EndDatingAppSurvey_AlgorithmShouldUse${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
+            player.stage.set(`EndDatingAppSurvey_AlgorithmShouldUse${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
         });
 
         player.stage.set("submit", true);
@@ -34,10 +28,6 @@ export function EndSurveyDatingAppUsage() {
 
     const handleActiveOnDatingAppsChange = (e) => {
         setActiveOnDatingApps(e.target.value);
-    };
-
-    const handleFrequencyChange = (e) => {
-        setFrequency(e.target.value);
     };
 
     const handleAppsUsedChange = (e) => {
@@ -56,20 +46,20 @@ export function EndSurveyDatingAppUsage() {
     };
 
     useEffect(() => {
-        const factorsList = ["Appearance", "Age", "Hobbies", "Profession", "Education Level", "Physical Health", "Ethnicity"];
+        const factorsList = ["Appearance", "Age", "Hobbies", "Profession", "Education Level", "Ethnicity"];
         
         const allFactorsSelected = factorsList.every(factor => factors[`factor-${factor}`]);
         const allRecommendationsSelected = factorsList.every(factor => recommendations[`recommend-${factor}`]);
 
         const isAllRequiredFieldsSelected = () => {
             if (activeOnDatingApps === "I am currently active on dating apps." || activeOnDatingApps === "I am not currently active on dating apps but was in the past.") {
-                return frequency && appsUsed.length > 0 && allFactorsSelected && allRecommendationsSelected;
+                return appsUsed.length > 0 && allFactorsSelected && allRecommendationsSelected;
             }
             return activeOnDatingApps && allRecommendationsSelected;
         };
 
         setIsSubmitEnabled(isAllRequiredFieldsSelected());
-    }, [activeOnDatingApps, frequency, appsUsed, factors, recommendations]);
+    }, [activeOnDatingApps, appsUsed, factors, recommendations]);
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center overflow-auto">
@@ -102,27 +92,8 @@ export function EndSurveyDatingAppUsage() {
                     {(activeOnDatingApps === "I am currently active on dating apps." || activeOnDatingApps === "I am not currently active on dating apps but was in the past.") && (
                         <>
                             <div className="space-y-4 pt-4">
-                                <label className="block text-lg font-medium text-gray-700 py-4">If you are currently active on dating apps or have been in the past, how frequently do/did you use them?</label>
-                                {["Multiple times a day", "Daily", "A few times a week", "Once a week", "Less than once a week"].map((option, idx) => (
-                                    <div key={idx} className="flex items-start">
-                                        <input
-                                            id={`frequency-${idx}`}
-                                            name="frequency"
-                                            type="radio"
-                                            value={option}
-                                            className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                                            onChange={handleFrequencyChange}
-                                        />
-                                        <label htmlFor={`frequency-${idx}`} className="ml-3 text-sm text-gray-700">
-                                            {option}
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="space-y-4 pt-4">
                                 <label className="block text-lg font-medium text-gray-700 py-4">Which dating apps have you used before? (Check all that apply)</label>
-                                {["Tinder", "Bumble", "Hinge", "OkCupid", "Plenty of Fish (PoF)", "HER", "Coffee Meets Bagel", "eHarmony", "Grindr", "Other (please specify)"].map((option, idx) => (
+                                {["Tinder", "Bumble", "Hinge", "OkCupid", "Plenty of Fish (PoF)", "HER", "Coffee Meets Bagel", "eHarmony", "Grindr", "Feeld", "Other (please specify)"].map((option, idx) => (
                                     <div key={idx} className="flex items-start">
                                         <input
                                             id={`appsUsed-${idx}`}
@@ -152,7 +123,7 @@ export function EndSurveyDatingAppUsage() {
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
-                                        {["Appearance", "Age", "Hobbies", "Profession", "Education Level", "Physical Health", "Ethnicity"].map((factor, idx) => (
+                                        {["Appearance", "Age", "Hobbies", "Profession", "Education Level", "Ethnicity"].map((factor, idx) => (
                                             <tr key={idx}>
                                                 <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{factor}</td>
                                                 {["Very Important", "Quite Important", "Not Very Important", "Not Important", "Prefer not to answer"].map((option, idy) => (
@@ -176,7 +147,7 @@ export function EndSurveyDatingAppUsage() {
                     )}
 
                     <div className="mt-4">
-                        <label className="block text-lg font-medium text-gray-700 py-4">Dating apps take into account various aspects of user profiles to decide whether or not to recommend profiles to each other. Which of the following do you think they should be allowed to use? Rank each:</label>
+                        <label className="block text-lg font-medium text-gray-700 py-4">Dating apps use various aspects of user profiles to make recommendations. From an ethical standpoint, which of the following factors do you believe should be permissible for them to consider? Rank each:</label>
                         <table className="min-w-full divide-y divide-gray-200 mt-4">
                             <thead>
                                 <tr>
@@ -187,7 +158,7 @@ export function EndSurveyDatingAppUsage() {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {["Appearance", "Age", "Hobbies", "Profession", "Education Level", "Physical Health", "Ethnicity"].map((factor, idx) => (
+                                {["Appearance", "Age", "Hobbies", "Profession", "Education Level", "Ethnicity"].map((factor, idx) => (
                                     <tr key={idx}>
                                         <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{factor}</td>
                                         {["Should definitely use", "Should maybe use", "Should maybe not use", "Should definitely not use"].map((option, idy) => (

@@ -261,8 +261,6 @@ const calculateUserPreferences = (likedProfiles, dislikedProfiles) => {
         preferenceScores[key] /= totalProfiles;
     });
 
-    console.log("User Preference Scores:", preferenceScores);
-
     return preferenceScores;
 };
 

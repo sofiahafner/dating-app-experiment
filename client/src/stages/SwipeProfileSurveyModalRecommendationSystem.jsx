@@ -22,8 +22,8 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
     };
 
     const handleSubmit = () => {
-        player.round.set("SwipeProfileRecommendationSurvey_Improvement", reasons.recommendationSystemImprovement);
-        player.round.set("SwipeProfileRecommendationSurvey_Variety", reasons.profileVariety);
+        player.stage.set("SwipeProfileRecommendationSurvey_Improvement", reasons.recommendationSystemImprovement);
+        player.stage.set("SwipeProfileRecommendationSurvey_Variety", reasons.profileVariety);
         player.stage.set("submit", true);
 
         onSubmit(reasons);

@@ -13,17 +13,16 @@ export function ChooseCharacter() {
     const [hobby, setHobby] = useState(player.round.get("chosenCharacterHobby") || 'Sport');
     const [chosenProfile, setChosenProfile] = useState(null);
     const [isSurveyModalOpen, setIsSurveyModalOpen] = useState(false);
+    
 
     const handlePlayCharacter = (profileId) => {
         setChosenProfile(profileId);
         setIsSurveyModalOpen(true);
     };
 
-    const handleSurveySubmit = (surveyData) => {
-        // Handle survey submission logic
-        // console.log(surveyData);
-        player.round.set('chosenProfile', parseInt(chosenProfile));
-        player.stage.set("submit", true);
+    const handleSurveySubmit = () => {
+        player.set('chosenProfile', parseInt(chosenProfile));
+        player.round.set("submit", true);
     };
 
     const handleSurveyClose = () => {

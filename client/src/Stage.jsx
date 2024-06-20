@@ -49,8 +49,6 @@ export function Stage() {
     case "endSurveyRecommendationSystem":
       return <EndSurveyRecommendationSystem />;
     default:
-      console.log("AAA");
-      console.log(stageName);
       return <p>Loading...</p>;
   }
 }

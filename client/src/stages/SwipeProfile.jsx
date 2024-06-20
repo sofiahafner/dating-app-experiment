@@ -7,8 +7,6 @@ import SwipeProfileSurveyModalRecommendationSystem from './SwipeProfileSurveyMod
 export function SwipeProfile() {
     const player = usePlayer();
     const player_round = player.get("roundsPlayed") || 0;
-    console.log('roundsPlayed')
-    console.log(player_round)
 
     const [buttonsEnabled, setButtonsEnabled] = useState(false);
     const [showSurvey, setShowSurvey] = useState(false);
@@ -17,24 +15,17 @@ export function SwipeProfile() {
     const [showRecommendationModal, setShowRecommendationModal] = useState(false);
 
     const ownProfileId = player.get("chosenProfile");
-    console.log('ownProfileId')
-    console.log(ownProfileId)
     const [otherProfiles, setOtherProfiles] = useState([]);
-    const [sidebarWidth, setSidebarWidth] = useState(300); // initial sidebar width
+    const [sidebarWidth, setSidebarWidth] = useState(300); 
 
     const updateSidebarWidth = () => {
-        const minWidth = 270; // minimum width for the sidebar
+        const minWidth = 270; 
         const newWidth = Math.max(window.innerWidth * 0.2, minWidth);
         setSidebarWidth(newWidth);
     };
 
     useEffect(() => {
-        // const [profile1, profile2] = getRandomRecommendation(player, ownProfileId);
         const [profile1, profile2] = player.get('nextRecommendations')
-        console.log("profile1")
-        console.log(profile1)
-        console.log("profile2")
-        console.log(profile2)
         setOtherProfiles([profile1, profile2]);
     }, [ownProfileId, player]);
 
@@ -54,8 +45,8 @@ export function SwipeProfile() {
 
     const handleSelectProfile = (likedProfile, dislikedProfile) => {
         if (buttonsEnabled) {
-            player.round.set("likedProfile", likedProfile);
-            player.round.set("dislikedProfile", dislikedProfile);
+            player.stage.set("likedProfile", likedProfile);
+            player.stage.set("dislikedProfile", dislikedProfile);
 
             const pastOpponentIDs = player.get("opponentIDs") || [];
             player.set("opponentIDs", [...pastOpponentIDs, likedProfile, dislikedProfile]);
@@ -63,7 +54,7 @@ export function SwipeProfile() {
             if ((player_round % 10 === 0) && (player_round !== 0)) {
                 setShowRecommendationModal(true);
                 setSelectedProfile({ likedProfile, dislikedProfile });
-            } else if ([5, 27, 32].includes(player_round)) {
+            } else if ([5, 15, 25, 35, 45].includes(player_round)) {
                 setSelectedProfile({ likedProfile, dislikedProfile });
                 setShowSurvey(true);
                 setProfileChoiceCount(profileChoiceCount + 1);
@@ -74,8 +65,8 @@ export function SwipeProfile() {
     };
 
     const submitChoice = (likedProfile, dislikedProfile) => {
-        player.round.set("likedProfile", likedProfile);
-        player.round.set("dislikedProfile", dislikedProfile);
+        player.stage.set("likedProfile", likedProfile);
+        player.stage.set("dislikedProfile", dislikedProfile);
         player.stage.set("submit", true);
     };
 
@@ -105,7 +96,7 @@ export function SwipeProfile() {
     };
 
     if (otherProfiles.length < 2) {
-        return <div>Loading...</div>; // or any other loading indicator
+        return <div>Loading...</div>;
     }
 
     return (
@@ -194,16 +185,16 @@ export function SwipeProfile() {
                 <SwipeProfileSurveyModalProfileChoice
                     onSubmit={handleSurveySubmit}
                     onClose={() => setShowSurvey(false)}
-                    chosenProfile={player.round.get("likedProfile")}
-                    unchosenProfile={player.round.get("dislikedProfile")}
+                    chosenProfile={player.stage.get("likedProfile")}
+                    unchosenProfile={player.stage.get("dislikedProfile")}
                 />
             )}
             {showRecommendationModal && (
                 <SwipeProfileSurveyModalRecommendationSystem
                     onSubmit={handleRecommendationSubmit}
                     onClose={() => setShowRecommendationModal(false)}
-                    chosenProfile={player.round.get("likedProfile")}
-                    unchosenProfile={player.round.get("dislikedProfile")}
+                    chosenProfile={player.stage.get("likedProfile")}
+                    unchosenProfile={player.stage.get("dislikedProfile")}
                 />
             )}
         </div>

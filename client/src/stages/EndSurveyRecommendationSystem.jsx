@@ -4,23 +4,21 @@ import React, { useState, useEffect } from 'react';
 export function EndSurveyRecommendationSystem() {
     const player = usePlayer();
     const [experienceAttributes, setExperienceAttributes] = useState({});
-    const [systemVariety, setSystemVariety] = useState('');
     const [recommendationDiversity, setRecommendationDiversity] = useState('');
     const [recommendationQuality, setRecommendationQuality] = useState('');
+    const [algorithmChoice, setAlgorithmChoice] = useState(''); 
     const [additionalComments, setAdditionalComments] = useState('');
     const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        // Save experience attributes
         Object.entries(experienceAttributes).forEach(([key, value]) => {
-            player.round.set(`EndRecSystemSurvey_algorithmLearnt${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
+            player.stage.set(`EndRecSystemSurvey_algorithmLearnt${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
         });
-        // Save other survey responses
-        player.round.set('EndRecSystemSurvey_systemVariety', systemVariety);
-        player.round.set('EndRecSystemSurvey_recommendationDiversity', recommendationDiversity);
-        player.round.set('EndRecSystemSurvey_recommendationQuality', recommendationQuality);
-        player.round.set('EndRecSystemSurvey_additionalComments', additionalComments);
+        player.stage.set('EndRecSystemSurvey_recommendationDiversity', recommendationDiversity);
+        player.stage.set('EndRecSystemSurvey_recommendationQuality', recommendationQuality);
+        player.stage.set('EndRecSystemSurvey_algorithmChoice', algorithmChoice); 
+        player.stage.set('EndRecSystemSurvey_additionalComments', additionalComments);
         player.stage.set("submit", true);
     };
 
@@ -29,16 +27,16 @@ export function EndSurveyRecommendationSystem() {
         setExperienceAttributes((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSystemVarietyChange = (e) => {
-        setSystemVariety(e.target.value);
-    };
-
     const handleRecommendationDiversityChange = (e) => {
         setRecommendationDiversity(e.target.value);
     };
 
     const handleRecommendationQualityChange = (e) => {
         setRecommendationQuality(e.target.value);
+    };
+
+    const handleAlgorithmChoiceChange = (e) => {
+        setAlgorithmChoice(e.target.value);
     };
 
     const handleAdditionalCommentsChange = (e) => {
@@ -50,11 +48,11 @@ export function EndSurveyRecommendationSystem() {
         const allAttributesSelected = attributesList.every(attr => experienceAttributes[`attribute-${attr}`]);
 
         const isAllRequiredFieldsSelected = () => {
-            return allAttributesSelected && systemVariety && recommendationDiversity && recommendationQuality;
+            return allAttributesSelected && recommendationDiversity && recommendationQuality && algorithmChoice;
         };
 
         setIsSubmitEnabled(isAllRequiredFieldsSelected());
-    }, [experienceAttributes, systemVariety, recommendationDiversity, recommendationQuality]);
+    }, [experienceAttributes, recommendationDiversity, recommendationQuality, algorithmChoice]);
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center overflow-auto">
@@ -99,25 +97,6 @@ export function EndSurveyRecommendationSystem() {
                     </div>
 
                     <div className="space-y-4 pt-4">
-                        <label className="block text-lg font-medium text-gray-700 py-4">Regarding the variety of recommendations, do you feel like the algorithm:</label>
-                        {["Showed a variety of potential matches, even if they didn't perfectly match your character’s preferences", "Focused on suggesting matches closely aligned with your character’s established preferences"].map((option, idx) => (
-                            <div key={idx} className="flex items-start">
-                                <input
-                                    id={`systemVariety-${idx}`}
-                                    name="systemVariety"
-                                    type="radio"
-                                    value={option}
-                                    className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                                    onChange={handleSystemVarietyChange}
-                                />
-                                <label htmlFor={`systemVariety-${idx}`} className="ml-3 text-sm text-gray-700">
-                                    {option}
-                                </label>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="space-y-4 pt-4">
                         <label className="block text-lg font-medium text-gray-700 py-4">Regarding the diversity of recommendations, do you think:</label>
                         {["The recommendations were too varied and inconsistent", "The diversity of recommendations was balanced and appropriate", "The recommendations were too similar and lacked diversity"].map((option, idx) => (
                             <div key={idx} className="flex items-start">
@@ -149,6 +128,27 @@ export function EndSurveyRecommendationSystem() {
                                     onChange={handleRecommendationQualityChange}
                                 />
                                 <label htmlFor={`recommendationQuality-${idx}`} className="ml-3 text-sm text-gray-700">
+                                    {option}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="space-y-4 pt-4">
+                        <label className="block text-lg font-medium text-gray-700 py-4">Which of the following algorithms do you think was used to recommend profiles to you during the previous experiment?</label>
+                        {["An algorithm that learned your preferences and recommended profiles similar to those you liked.",
+                          "An algorithm that ranked profiles based on their popularity and suggested profiles with similar rankings to yours.",
+                          "An algorithm that provided random profile recommendations."].map((option, idx) => (
+                            <div key={idx} className="flex items-start">
+                                <input
+                                    id={`algorithmChoice-${idx}`}
+                                    name="algorithmChoice"
+                                    type="radio"
+                                    value={option}
+                                    className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                                    onChange={handleAlgorithmChoiceChange}
+                                />
+                                <label htmlFor={`algorithmChoice-${idx}`} className="ml-3 text-sm text-gray-700">
                                     {option}
                                 </label>
                             </div>

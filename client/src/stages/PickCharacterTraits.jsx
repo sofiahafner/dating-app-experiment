@@ -10,7 +10,6 @@ export function PickCharacterTraits() {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        // Example of how you might save the collected data
         player.round.set("chosenCharacterGlasses", glasses);
         player.round.set("chosenCharacterHair", hair);
         player.round.set("chosenCharacterBeard", beard);

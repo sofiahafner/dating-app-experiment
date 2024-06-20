@@ -3,7 +3,6 @@ import { usePlayer } from '@empirica/core/player/classic/react';
 
 export function Explanation() {
     const player = usePlayer();
-    console.log("Explanation");
 
     const handleClick = () => {
         player.stage.set("submit", true);

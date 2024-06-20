@@ -1,6 +1,5 @@
 import { usePlayer } from "@empirica/core/player/classic/react";
 import React, { useState } from "react";
-import { Alert } from "../components/Alert";
 import { Button } from "../components/Button";
 
 export function ExitSurvey({ next }) {
@@ -15,39 +14,29 @@ export function ExitSurvey({ next }) {
     event.preventDefault();
     player.set("exitSurvey", { feedback });
     next();
+    window.location.href = "https://www.prolific.co/";
   }
 
   return (
     <div className="py-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <Alert title="Bonus">
-        <p>
-          Please submit the following code to receive your bonus:{" "}
-          <strong>{player.id}</strong>.
-        </p>
-        <p className="pt-1">
-          Your final <strong>bonus</strong> is in addition to the{" "}
-          <strong>1 base reward</strong> for completing the HIT.
-        </p>
-      </Alert>
-
       <form
         className="mt-12 space-y-8 divide-y divide-gray-200"
         onSubmit={handleSubmit}
       >
         <div className="space-y-8 divide-y divide-gray-200">
           <div>
-            <div>
-              <h3 className="text-lg leading-6 font-medium text-gray-900">
-                Exit Survey
-              </h3>
-            </div>
+            <h3 className="text-lg leading-6 font-medium text-gray-900">
+              Thank you very much for completing the experiment!
+            </h3>
+            <p>
+              When clicking on "Submit", you will be re-directed to Prolific to claim your reward.
+            </p>
 
             <div className="space-y-8 mt-6">
               <div>
                 <label className={labelClassName}>
-                  Feedback, including problems you encountered.
+                  Feedback, including problems you encountered:
                 </label>
-
                 <textarea
                   className={inputClassName}
                   dir="auto"

@@ -4,12 +4,12 @@ import { createProfile } from '../utils.jsx';
 
 function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile, unchosenProfile }) {
     const player = usePlayer();
-
     const [attributes, setAttributes] = useState({
         appearance: '',
         age: '',
         hobbies: '',
-        job: ''
+        job: '',
+        difficulty: ''
     });
 
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
@@ -26,7 +26,7 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
 
     const handleSubmit = () => {
         Object.entries(attributes).forEach(([key, value]) => {
-            player.round.set(`SwipeProfileChoiceSurvey_Attribute${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
+            player.stage.set(`SwipeProfileChoiceSurvey_Attribute${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
         });
         player.stage.set("submit", true);
 
@@ -95,6 +95,36 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
                                     ))}
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                    <div className="flex-2">
+                        <h1 className="text-lg leading-6 font-medium text-gray-900">Difficulty of Your Choice</h1>
+                        <p className="mt-1 text-sm text-gray-500">
+                            How difficult was it to choose between the characters?
+                        </p>
+
+                        <div className="mt-4 space-y-4">
+                            {[
+                                { id: 'chosenBetter', label: "Easy, as the chosen character fit a lot better" },
+                                { id: 'neitherGood', label: "Hard, as neither character fit well" },
+                                { id: 'bothGood', label: "Hard, as both characters fit well" },
+                                { id: 'random', label: "I chose without considering fit" },
+                            ].map(option => (
+                                <div key={option.id} className="flex items-center">
+                                    <input
+                                        id={option.id}
+                                        name="difficulty"
+                                        type="radio"
+                                        value={option.id}
+                                        className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                                        onChange={handleAttributeChange}
+                                    />
+                                    <label htmlFor={option.id} className="ml-3 block text-sm font-medium text-gray-700">
+                                        {option.label}
+                                    </label>
+                                </div>
+                            ))}
                         </div>
                     </div>
 

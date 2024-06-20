@@ -5,12 +5,11 @@ import fs from 'fs';
 
 export const Empirica = new ClassicListenersCollector();
 
-let swipeData = [];
+// let swipeData = [];
 
 Empirica.onGameStart(({ game }) => {
   const treatment = game.get("treatment");
   const { numSwipes, recAlgorithm } = treatment;
-  console.log(recAlgorithm)
   const players = game.players;
   for (const player of players) {
     player.set("recAlgorithm", recAlgorithm);
@@ -65,8 +64,8 @@ Empirica.onStageEnded(({ stage }) => {
     const players = stage.currentGame.players;
 
     for (const player of players) {
-      const likedProfile = player.round.get("likedProfile");
-      const dislikedProfile = player.round.get("dislikedProfile");
+      const likedProfile = player.stage.get("likedProfile");
+      const dislikedProfile = player.stage.get("dislikedProfile");
       const recommendations = player.get("nextRecommendations");
 
       const currentLikedProfiles = player.get("likedProfiles") || [];
@@ -75,13 +74,13 @@ Empirica.onStageEnded(({ stage }) => {
       player.set("likedProfiles", [...currentLikedProfiles, likedProfile]);
       player.set("dislikedProfiles", [...currentDislikedProfiles, dislikedProfile]);
 
-      swipeData.push({
-        participantID: player.id,
-        ownProfileID: player.get('chosenProfile'),
-        recommendedProfiles: recommendations,
-        likedProfile: likedProfile,
-        dislikedProfile: dislikedProfile
-      });
+      // swipeData.push({
+      //   participantID: player.id,
+      //   ownProfileID: player.get('chosenProfile'),
+      //   recommendedProfiles: recommendations,
+      //   likedProfile: likedProfile,
+      //   dislikedProfile: dislikedProfile
+      // });
     }
   }
 
@@ -89,26 +88,25 @@ Empirica.onStageEnded(({ stage }) => {
     const players = stage.currentGame.players;
 
     for (const player of players) {
-      const chosenProfile = player.round.get("chosenProfile");
+      const chosenProfile = player.get("chosenProfile");
       player.set("chosenProfile", chosenProfile);
       player.set("finalElo", getFinalEloRating(chosenProfile))
-      console.log(player.get("finalElo"))
     }
   }
 });
 
 Empirica.onRoundEnded(({ round }) => {
-  if (round.get("name") === "swipeRound") {
-    const players = round.currentGame.players;
-    players.forEach(player => {
-      const roundsPlayed = player.get("roundsPlayed") || 0;
-      player.set("roundsPlayed", roundsPlayed + 1);
-    });
-  }
+  // if (round.get("name") === "swipeRound") {
+  //   const players = round.currentGame.players;
+  //   players.forEach(player => {
+  //     const roundsPlayed = player.get("roundsPlayed") || 0;
+  //     player.set("roundsPlayed", roundsPlayed + 1);
+  //   });
+  // }
   
 });
 
 Empirica.onGameEnded(({ game }) => {
   // Write swipe data to JSON file
-  fs.writeFileSync('swipeData.json', JSON.stringify(swipeData, null, 2));
+  // fs.writeFileSync('swipeData.json', JSON.stringify(swipeData, null, 2));
 });

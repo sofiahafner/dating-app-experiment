@@ -1,8 +1,6 @@
 // utils.jsx
 // import peepProfiles from '../data/peep_profiles.json';
 import profiles from '../data/peep_profiles.json';
-import Peep from 'react-peeps';
-import  { useState, useEffect} from 'react';
 import { Effigy } from '../../client/open-peeps/lib/Effigy.tsx';
 
 
