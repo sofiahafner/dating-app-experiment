@@ -1,6 +1,7 @@
 // utils.jsx
 // import peepProfiles from '../data/peep_profiles.json';
 import profiles from '../data/peep_profiles.json';
+
 import { Effigy } from '../../client/open-peeps/lib/Effigy.tsx';
 
 
@@ -109,7 +110,7 @@ export function createProfile(profileId) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-start',
-            marginBottom: '20px',
+            // marginBottom: '20px',
             overflow: 'hidden',
         },
         peepContainer: {

@@ -35,8 +35,8 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
     };
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center overflow-y-auto">
-            <div className="py-4 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg flex flex-col space-y-4">
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-start overflow-y-auto" style={{ paddingTop: '20px', paddingBottom: '20px'  }}>
+            <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg flex flex-col space-y-4 overflow-y-auto" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
                 <h1 className="text-2xl font-bold text-center">Matching Choice Survey</h1>
                 <div className="flex flex-col space-y-8">
                     <div className="flex-2">
@@ -45,7 +45,7 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
                             For each of the following profile characteristics, indicate whether the chosen character was better, both were about the same, or the other character was better:
                         </p>
 
-                        <div className="mt-4">
+                        <div className="mt-4 overflow-x-auto">
                             <table className="min-w-full divide-y divide-gray-200">
                                 <thead>
                                     <tr>
@@ -131,13 +131,13 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
                     <div className="flex flex-row justify-between space-x-4">
                         <div className="flex-1 flex flex-col items-center">
                             <div className="text-lg leading-6 font-medium text-gray-900">Chosen Character</div>
-                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', textAlign: 'left' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', textAlign: 'left', border: '7px solid lightgreen', borderRadius: '23px' }}>
                                 {createProfile(chosenProfile)}
                             </div>
                         </div>
                         <div className="flex-1 flex flex-col items-center">
                             <div className="text-lg leading-6 font-medium text-gray-900">Other Character</div>
-                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', textAlign: 'left' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', textAlign: 'left', border: '7px solid lightcoral', borderRadius: '23px' }}>
                                 {createProfile(unchosenProfile)}
                             </div>
                         </div>
