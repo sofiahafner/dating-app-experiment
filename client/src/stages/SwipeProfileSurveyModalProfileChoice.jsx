@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { usePlayer } from '@empirica/core/player/classic/react';
 import { createProfile } from '../utils.jsx';
 
-function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile, unchosenProfile }) {
+function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile, unchosenProfile, attentionCheck }) {
     const player = usePlayer();
     const [attributes, setAttributes] = useState({
         appearance: '',
@@ -30,19 +30,23 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
         });
         player.stage.set("submit", true);
 
+        // Save the attention check variable to player.stage
+        player.stage.set("attentionCheck", attentionCheck);
+
         onSubmit(attributes);
         onClose();
     };
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-start overflow-y-auto" style={{ paddingTop: '20px', paddingBottom: '20px'  }}>
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-start overflow-y-auto" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
             <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg flex flex-col space-y-4 overflow-y-auto" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
                 <h1 className="text-2xl font-bold text-center">Matching Choice Survey</h1>
                 <div className="flex flex-col space-y-8">
                     <div className="flex-2">
                         <h1 className="text-lg leading-6 font-medium text-gray-900">Reasons for Your Choice</h1>
                         <p className="mt-1 text-sm text-gray-500">
-                            For each of the following profile characteristics, indicate whether the chosen character was better, both were about the same, or the other character was better:
+                            For each of the following profile characteristics, indicate whether the chosen character was better, both were about the same, or the other character was better.
+                            {attentionCheck === "attentionAgeIsSame" && <span className="mt-1 text-sm text-gray-500"> As an attention check, please select "About the Same" for the "Their Age" characteristic.</span>}
                         </p>
 
                         <div className="mt-4 overflow-x-auto">
@@ -102,6 +106,7 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
                         <h1 className="text-lg leading-6 font-medium text-gray-900">Difficulty of Your Choice</h1>
                         <p className="mt-1 text-sm text-gray-500">
                             How difficult was it to choose between the characters?
+                            {attentionCheck === "attentionDifficultyBothFitWell" && <span className="mt-1 text-sm text-gray-500"> As an attention check, please select that is was hard, as both characters fit well.</span>}
                         </p>
 
                         <div className="mt-4 space-y-4">

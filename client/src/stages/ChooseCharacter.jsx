@@ -21,7 +21,7 @@ export function ChooseCharacter() {
     };
 
     const handleSurveySubmit = () => {
-        player.set('chosenProfile', parseInt(chosenProfile));
+        player.game.set('chosenProfile', parseInt(chosenProfile));
         player.round.set("submit", true);
     };
 
@@ -127,7 +127,7 @@ export function ChooseCharacter() {
                                 onClick={() => handlePlayCharacter(profile.profile_ID)}
                                 className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                                 style={{ 
-                                    marginTop: '-3px',
+                                    marginTop: '15px',
                                     backgroundColor: '#282828',
                                     color: 'white',
                                     transition: 'background-color 0.3s ease'

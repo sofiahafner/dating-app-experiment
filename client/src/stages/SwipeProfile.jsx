@@ -6,7 +6,7 @@ import SwipeProfileSurveyModalRecommendationSystem from './SwipeProfileSurveyMod
 
 export function SwipeProfile() {
     const player = usePlayer();
-    const player_round = player.get("roundsPlayed") || 0;
+    const player_round = player.game.get("roundsPlayed") || 0;
 
     const [buttonsEnabled, setButtonsEnabled] = useState(false);
     const [showSurvey, setShowSurvey] = useState(false);
@@ -14,7 +14,7 @@ export function SwipeProfile() {
     const [profileChoiceCount, setProfileChoiceCount] = useState(0);
     const [showRecommendationModal, setShowRecommendationModal] = useState(false);
 
-    const ownProfileId = player.get("chosenProfile");
+    const ownProfileId = player.game.get("chosenProfile");
     const [otherProfiles, setOtherProfiles] = useState([]);
     const [sidebarWidth, setSidebarWidth] = useState(300); 
 
@@ -25,14 +25,14 @@ export function SwipeProfile() {
     };
 
     useEffect(() => {
-        const [profile1, profile2] = player.get('nextRecommendations')
+        const [profile1, profile2] = player.game.get('nextRecommendations');
         setOtherProfiles([profile1, profile2]);
     }, [ownProfileId, player]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
             setButtonsEnabled(true);
-        }, 1000);
+        }, 300);
 
         return () => clearTimeout(timer);
     }, []);
@@ -45,11 +45,12 @@ export function SwipeProfile() {
 
     const handleSelectProfile = (likedProfile, dislikedProfile) => {
         if (buttonsEnabled) {
+            player.stage.set("roundsPlayed", player_round);
             player.stage.set("likedProfile", likedProfile);
             player.stage.set("dislikedProfile", dislikedProfile);
 
-            const pastOpponentIDs = player.get("opponentIDs") || [];
-            player.set("opponentIDs", [...pastOpponentIDs, likedProfile, dislikedProfile]);
+            const pastOpponentIDs = player.game.get("opponentIDs") || [];
+            player.game.set("opponentIDs", [...pastOpponentIDs, likedProfile, dislikedProfile]);
 
             if ((player_round % 10 === 0) && (player_round !== 0)) {
                 setShowRecommendationModal(true);
@@ -98,6 +99,12 @@ export function SwipeProfile() {
     if (otherProfiles.length < 2) {
         return <div>Loading...</div>;
     }
+
+    const getAttentionCheck = () => {
+        if (player_round === 15) return "attentionAgeIsSame";
+        if (player_round === 45) return "attentionDifficultyBothFitWell";
+        return "None";
+    };
 
     return (
         <div style={{ width: '100%', height: '100%', position: 'relative', background: 'white', display: 'flex' }}>
@@ -187,14 +194,16 @@ export function SwipeProfile() {
                     onClose={() => setShowSurvey(false)}
                     chosenProfile={player.stage.get("likedProfile")}
                     unchosenProfile={player.stage.get("dislikedProfile")}
+                    attentionCheck={getAttentionCheck()}
                 />
             )}
             {showRecommendationModal && (
                 <SwipeProfileSurveyModalRecommendationSystem
                     onSubmit={handleRecommendationSubmit}
                     onClose={() => setShowRecommendationModal(false)}
-                    chosenProfile={player.stage.get("likedProfile")}
-                    unchosenProfile={player.stage.get("dislikedProfile")}
+                    // chosenProfile={player.stage.get("likedProfile")}
+                    // unchosenProfile={player.stage.get("dislikedProfile")}
+                    // attentionCheck={true}
                 />
             )}
         </div>

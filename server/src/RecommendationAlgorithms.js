@@ -38,7 +38,11 @@ const calculateUserPreferences_Gender = (likedProfiles, dislikedProfiles) => {
     };
 };
 
-export function getBaselineRecommendation(ownProfileID, likedProfiles, dislikedProfiles) {
+export function getBaselineRecommendation(player) {
+    const ownProfileID = player.game.get('chosenProfile');
+    const likedProfiles = player.game.get('likedProfiles') || [];
+    const dislikedProfiles = player.game.get('dislikedProfiles') || [];
+
     const pastOpponentIDs = [...likedProfiles, ...dislikedProfiles].map(id => parseInt(id));
     const userPreferences = calculateUserPreferences_Gender(likedProfiles, dislikedProfiles);
 
@@ -55,20 +59,32 @@ export function getBaselineRecommendation(ownProfileID, likedProfiles, dislikedP
         { key: 'longHair', value: userPreferences.longHair, filter: p => !p.hair_short },
     ];
 
-    const strongPreference = preferences.find(p => p.value > 0.70);
-    if (strongPreference) {
-        otherProfiles = otherProfiles.filter(strongPreference.filter);
+    player.stage.set("genderPreferences", preferences);
+
+    const strongPreferences = preferences.filter(p => p.value > 0.70);
+    if (strongPreferences.length > 0) {
+        player.stage.set("strongPreferenceDetected", "True");
+        const detectedPreferences = strongPreferences.map(p => p.key);
+        player.stage.set("strongPreferences", detectedPreferences);
+
+        strongPreferences.forEach(pref => {
+            otherProfiles = otherProfiles.filter(pref.filter);
+        });
+    } else {
+        player.stage.set("strongPreferenceDetected", "False");
+        player.stage.set("strongPreferences", []);
     }
 
     return otherProfiles.map(p => p.profile_ID);
 }
 
-export function getRandomRecommendation(player) {
-    const ownProfileID = player.get('chosenProfile');
-    const likedProfiles = player.get('likedProfiles') || [];
-    const dislikedProfiles = player.get('dislikedProfiles') || [];
 
-    const recommendations = getBaselineRecommendation(ownProfileID, likedProfiles, dislikedProfiles);
+export function getRandomRecommendation(player) {
+    // const ownProfileID = player.game.get('chosenProfile');
+    // const likedProfiles = player.game.get('likedProfiles') || [];
+    // const dislikedProfiles = player.game.get('dislikedProfiles') || [];
+
+    const recommendations = getBaselineRecommendation(player);
 
     if (recommendations.length <= 2) {
         return recommendations.length > 0 ? recommendations : [1, 2];
@@ -153,11 +169,11 @@ export function getFinalEloRating(ownProfileID) {
 }
 
 export function getEloRecommendation(player) {
-    const ownProfileID = player.get('chosenProfile');
-    const finalElo = player.get('finalElo');
-    const likedProfiles = player.get('likedProfiles') || [];
-    const dislikedProfiles = player.get('dislikedProfiles') || [];
-    const roundsPlayed = player.get("roundsPlayed") || 0;
+    const ownProfileID = player.game.get('chosenProfile');
+    const finalElo = player.game.get('finalElo');
+    const likedProfiles = player.game.get('likedProfiles') || [];
+    const dislikedProfiles = player.game.get('dislikedProfiles') || [];
+    const roundsPlayed = player.game.get("roundsPlayed") || 0;
 
     let currentElo = 1000;
     const increment = (finalElo - currentElo) / 50;
@@ -167,7 +183,7 @@ export function getEloRecommendation(player) {
         currentElo = finalElo;
     }
 
-    const recommendations = getBaselineRecommendation(ownProfileID, likedProfiles, dislikedProfiles);
+    const recommendations = getBaselineRecommendation(player);
 
     if (recommendations.length <= 2) {
         return recommendations.length > 0 ? recommendations : [1, 2];
@@ -272,13 +288,13 @@ const calculateUCBValue = (successes, trials, totalTrials) => {
 };
 
 const getSiameseBanditRecommendation = (player) => {
-    const ownProfileID = player.get('chosenProfile');
-    const likedProfiles = player.get('likedProfiles') || [];
-    const dislikedProfiles = player.get('dislikedProfiles') || [];
-    const roundsPlayed = player.get("roundsPlayed") || 0;
+    const ownProfileID = player.game.get('chosenProfile');
+    const likedProfiles = player.game.get('likedProfiles') || [];
+    const dislikedProfiles = player.game.get('dislikedProfiles') || [];
+    const roundsPlayed = player.game.get("roundsPlayed") || 0;
     const userPreferences = calculateUserPreferences(likedProfiles, dislikedProfiles);
 
-    const otherProfiles = getBaselineRecommendation(ownProfileID, likedProfiles, dislikedProfiles);
+    const otherProfiles =  getBaselineRecommendation(player);
 
     const ucbValues = otherProfiles.map(profile => {
         let successes = 0;
@@ -318,13 +334,13 @@ const getSiameseBanditRecommendation = (player) => {
 
 export function getNextRecommendation(player) {
 
-    const likedProfiles = player.get('likedProfiles') || [];
+    const likedProfiles = player.game.get('likedProfiles') || [];
     if (likedProfiles.length < 15) {
         return getRandomRecommendation(player);
     }
 
     // After 15 recs rec system decides next recommendations depending on treatment group
-    const recAlgorithm = player.get("recAlgorithm");
+    const recAlgorithm = player.game.get("recAlgorithm");
     if (recAlgorithm === 'random') {
         return getRandomRecommendation(player);
     }

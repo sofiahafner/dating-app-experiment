@@ -12,13 +12,14 @@ Empirica.onGameStart(({ game }) => {
   const { numSwipes, recAlgorithm } = treatment;
   const players = game.players;
   for (const player of players) {
-    player.set("recAlgorithm", recAlgorithm);
+    player.game.set("recAlgorithm", recAlgorithm);
+    player.game.set("treatment", treatment);
   }
 
   const pre_rounds = game.addRound({
     name : 'preRounds'
   });
-  pre_rounds.addStage({name: "explanation", duration: 3000});
+  // pre_rounds.addStage({name: "explanation", duration: 3000});
   pre_rounds.addStage({name: "pickCharacterTraits", duration: 3000});
   pre_rounds.addStage({name: "chooseCharacter", duration: 3000});
 
@@ -49,10 +50,10 @@ Empirica.onStageStart(({ stage }) => {
 
     for (const player of players) {
       const recommendations = getNextRecommendation(player);
-      player.set('nextRecommendations', recommendations);
+      player.game.set('nextRecommendations', recommendations);
 
-      const roundsPlayed = player.get("roundsPlayed") || 0;
-      player.set("roundsPlayed", roundsPlayed + 1);
+      const roundsPlayed = player.game.get("roundsPlayed") || 0;
+      player.game.set("roundsPlayed", roundsPlayed + 1);
     }
   }
 });
@@ -66,17 +67,17 @@ Empirica.onStageEnded(({ stage }) => {
     for (const player of players) {
       const likedProfile = player.stage.get("likedProfile");
       const dislikedProfile = player.stage.get("dislikedProfile");
-      const recommendations = player.get("nextRecommendations");
+      const recommendations = player.game.get("nextRecommendations");
 
-      const currentLikedProfiles = player.get("likedProfiles") || [];
-      const currentDislikedProfiles = player.get("dislikedProfiles") || [];
+      const currentLikedProfiles = player.game.get("likedProfiles") || [];
+      const currentDislikedProfiles = player.game.get("dislikedProfiles") || [];
 
-      player.set("likedProfiles", [...currentLikedProfiles, likedProfile]);
-      player.set("dislikedProfiles", [...currentDislikedProfiles, dislikedProfile]);
+      player.game.set("likedProfiles", [...currentLikedProfiles, likedProfile]);
+      player.game.set("dislikedProfiles", [...currentDislikedProfiles, dislikedProfile]);
 
       // swipeData.push({
       //   participantID: player.id,
-      //   ownProfileID: player.get('chosenProfile'),
+      //   ownProfileID: player.game.get('chosenProfile'),
       //   recommendedProfiles: recommendations,
       //   likedProfile: likedProfile,
       //   dislikedProfile: dislikedProfile
@@ -88,9 +89,9 @@ Empirica.onStageEnded(({ stage }) => {
     const players = stage.currentGame.players;
 
     for (const player of players) {
-      const chosenProfile = player.get("chosenProfile");
-      player.set("chosenProfile", chosenProfile);
-      player.set("finalElo", getFinalEloRating(chosenProfile))
+      const chosenProfile = player.game.get("chosenProfile");
+      player.game.set("chosenProfile", chosenProfile);
+      player.game.set("finalElo", getFinalEloRating(chosenProfile))
     }
   }
 });
@@ -99,7 +100,7 @@ Empirica.onRoundEnded(({ round }) => {
   // if (round.get("name") === "swipeRound") {
   //   const players = round.currentGame.players;
   //   players.forEach(player => {
-  //     const roundsPlayed = player.get("roundsPlayed") || 0;
+  //     const roundsPlayed = player.game.get("roundsPlayed") || 0;
   //     player.set("roundsPlayed", roundsPlayed + 1);
   //   });
   // }

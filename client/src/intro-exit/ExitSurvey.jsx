@@ -12,7 +12,7 @@ export function ExitSurvey({ next }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    player.set("exitSurvey", { feedback });
+    player.game.set("exitSurvey", { feedback });
     next();
     window.location.href = "https://www.prolific.co/";
   }

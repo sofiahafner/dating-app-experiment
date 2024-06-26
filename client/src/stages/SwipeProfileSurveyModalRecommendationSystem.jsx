@@ -31,8 +31,8 @@ function SwipeProfileSurveyModalRecommendationSystem({ onSubmit, onClose }) {
     };
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center overflow-auto">
-            <div className="py-8 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg flex flex-col space-y-8">
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-start overflow-y-auto" style={{ paddingTop: '20px' }}>
+            <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg flex flex-col space-y-8 overflow-y-auto" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
                 <h1 className="text-2xl font-bold text-center">Recommendation System Improvement and Variety</h1>
                 
                 <h2 className="text-lg leading-6 font-medium text-gray-900 mt-8">Recommendation System Improvement</h2>
