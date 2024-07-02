@@ -62,7 +62,7 @@ export function ChooseCharacter() {
         <div style={{ display: 'flex', height: '100%' }}>
             <div style={{ width: '20%', background: '#282828', padding: '20px', boxSizing: 'border-box' }}>
                 <div style={{ color: '#DADADA', fontSize: 22, fontFamily: 'Inter', fontWeight: '700' }}>Instructions</div>
-                <div style={{ color: '#DADADA', fontSize: 16, fontFamily: 'Inter', fontWeight: '400' }}>Select the character you want to play by clicking the "Play this Character" button under their profile. Use the form below if you want to change your previous selections.</div>
+                <div style={{ color: '#DADADA', fontSize: 16, fontFamily: 'Inter', fontWeight: '400' }}>Select the character you identify with most by clicking the "Play this Character" button under their profile. Use the form below to change your previous selections if needed.</div>
                 <div className="mt-12 space-y-8 divide-y divide-gray-200">
                     <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
                         <div>

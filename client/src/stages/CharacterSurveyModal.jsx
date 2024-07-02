@@ -56,7 +56,7 @@ function CharacterSurveyModal({ onSubmit, onClose, profile }) {
                 <h1 className="text-2xl font-bold text-center">Character Choice Survey</h1>
                 <div className="flex flex-row space-x-4">
                     <div className="flex-2">
-                        <h1 className="text-lg leading-6 font-medium text-gray-900">Similarity to your Character</h1>
+                        <h1 className="text-lg leading-6 font-medium text-gray-900">Is your character similar to you?</h1>
                         <p className="mt-1 text-sm text-gray-500">
                             Check whether the character you chose is similar to you or not:
                         </p>
@@ -113,7 +113,7 @@ function CharacterSurveyModal({ onSubmit, onClose, profile }) {
                             </table>
                         </div>
 
-                        <h2 className="text-lg leading-15 font-medium text-gray-900 mt-4">Reasons for Choosing the Character</h2>
+                        <h2 className="text-lg leading-15 font-medium text-gray-900 mt-4">Why did you choose this character?</h2>
                         <p className="mt-1 text-sm text-gray-500">
                             How much did each characteristic influence your decision to choose this character?
                         </p>

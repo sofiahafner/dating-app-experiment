@@ -40,7 +40,23 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-start overflow-y-auto" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
             <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg flex flex-col space-y-4 overflow-y-auto" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+                
+                
                 <h1 className="text-2xl font-bold text-center">Matching Choice Survey</h1>
+                <div className="flex flex-row justify-between space-x-4">
+                        <div className="flex-1 flex flex-col items-center">
+                            <div className="text-lg leading-6 font-medium text-gray-900">Chosen Character</div>
+                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', textAlign: 'left', border: '7px solid lightgreen', borderRadius: '23px' }}>
+                                {createProfile(chosenProfile)}
+                            </div>
+                        </div>
+                        <div className="flex-1 flex flex-col items-center">
+                            <div className="text-lg leading-6 font-medium text-gray-900">Other Character</div>
+                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', textAlign: 'left', border: '7px solid lightcoral', borderRadius: '23px' }}>
+                                {createProfile(unchosenProfile)}
+                            </div>
+                        </div>
+                    </div>
                 <div className="flex flex-col space-y-8">
                     <div className="flex-2">
                         <h1 className="text-lg leading-6 font-medium text-gray-900">Reasons for Your Choice</h1>
@@ -103,17 +119,18 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
                     </div>
 
                     <div className="flex-2">
-                        <h1 className="text-lg leading-6 font-medium text-gray-900">Difficulty of Your Choice</h1>
+                        <h1 className="text-lg leading-6 font-medium text-gray-900">Character Fit</h1>
                         <p className="mt-1 text-sm text-gray-500">
-                            How difficult was it to choose between the characters?
-                            {attentionCheck === "attentionDifficultyBothFitWell" && <span className="mt-1 text-sm text-gray-500"> As an attention check, please select that is was hard, as both characters fit well.</span>}
+                            {/* How difficult was it to choose between the characters? */}
+                            How well do the recommended characters fit with your character?
+                            {attentionCheck === "attentionDifficultyBothFitWell" && <span className="mt-1 text-sm text-gray-500"> As an attention check, please select that both characters fit well.</span>}
                         </p>
 
                         <div className="mt-4 space-y-4">
                             {[
-                                { id: 'chosenBetter', label: "Easy, as the chosen character fit a lot better" },
-                                { id: 'neitherGood', label: "Hard, as neither character fit well" },
-                                { id: 'bothGood', label: "Hard, as both characters fit well" },
+                                { id: 'chosenBetter', label: "The chosen character fits a lot better" },
+                                { id: 'neitherGood', label: "Neither character fits well" },
+                                { id: 'bothGood', label: "Both characters fit well" },
                                 { id: 'random', label: "I chose without considering fit" },
                             ].map(option => (
                                 <div key={option.id} className="flex items-center">
@@ -133,20 +150,7 @@ function SwipeProfileSurveyModalProfileChoice({ onSubmit, onClose, chosenProfile
                         </div>
                     </div>
 
-                    <div className="flex flex-row justify-between space-x-4">
-                        <div className="flex-1 flex flex-col items-center">
-                            <div className="text-lg leading-6 font-medium text-gray-900">Chosen Character</div>
-                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', textAlign: 'left', border: '7px solid lightgreen', borderRadius: '23px' }}>
-                                {createProfile(chosenProfile)}
-                            </div>
-                        </div>
-                        <div className="flex-1 flex flex-col items-center">
-                            <div className="text-lg leading-6 font-medium text-gray-900">Other Character</div>
-                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '300px', maxHeight: '450px', textAlign: 'left', border: '7px solid lightcoral', borderRadius: '23px' }}>
-                                {createProfile(unchosenProfile)}
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div className="mt-6 flex justify-center">
                     <button

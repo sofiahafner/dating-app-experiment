@@ -5,6 +5,7 @@ export function EndSurveyDatingAppUsage() {
     const player = usePlayer();
     const [activeOnDatingApps, setActiveOnDatingApps] = useState('');
     const [appsUsed, setAppsUsed] = useState([]);
+    const [otherApp, setOtherApp] = useState(''); // State to hold the other app specified
     const [factors, setFactors] = useState({});
     const [recommendations, setRecommendations] = useState({});
     const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
@@ -14,6 +15,9 @@ export function EndSurveyDatingAppUsage() {
 
         player.stage.set("EndDatingAppSurvey_activeOnDatingApps", activeOnDatingApps);
         player.stage.set("EndDatingAppSurvey_datingAppsUsed", appsUsed);
+        if (otherApp) {
+            player.stage.set("EndDatingAppSurvey_otherAppUsed", otherApp);
+        }
 
         Object.entries(factors).forEach(([key, value]) => {
             player.stage.set(`EndDatingAppSurvey_PersonalInfluenceFactors${key.charAt(0).toUpperCase() + key.slice(1)}`, value);
@@ -32,7 +36,14 @@ export function EndSurveyDatingAppUsage() {
 
     const handleAppsUsedChange = (e) => {
         const value = e.target.value;
+        if (value === "Other (please specify)") {
+            setOtherApp('');
+        }
         setAppsUsed((prev) => prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]);
+    };
+
+    const handleOtherAppChange = (e) => {
+        setOtherApp(e.target.value);
     };
 
     const handleFactorsChange = (e) => {
@@ -106,7 +117,14 @@ export function EndSurveyDatingAppUsage() {
                                         <label htmlFor={`appsUsed-${idx}`} className="ml-3 text-sm text-gray-700">
                                             {option}
                                         </label>
-                                        {option === "Other (please specify)" && <input type="text" className="ml-3 mt-1 block w-full border border-gray-300 rounded-md shadow-sm" />}
+                                        {option === "Other (please specify)" && (
+                                            <input 
+                                                type="text" 
+                                                className="ml-3 mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
+                                                value={otherApp}
+                                                onChange={handleOtherAppChange}
+                                            />
+                                        )}
                                     </div>
                                 ))}
                             </div>

@@ -23,7 +23,7 @@ export function PickCharacterTraits() {
         <div className="py-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-lg rounded-lg">
             <h1 className="text-lg leading-6 font-medium text-gray-900">Pick Your Character's Traits</h1>
             <p className="mt-1 text-sm text-gray-500">
-                First, you need to pick your Character's traits.
+                First, you need to pick your character's traits.
                 Make a selection for each category below. Then, click on the submit button.
             </p>
 

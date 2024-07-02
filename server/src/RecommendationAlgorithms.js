@@ -66,17 +66,24 @@ export function getBaselineRecommendation(player) {
         player.stage.set("strongPreferenceDetected", "True");
         const detectedPreferences = strongPreferences.map(p => p.key);
         player.stage.set("strongPreferences", detectedPreferences);
+        console.log(detectedPreferences)
 
-        strongPreferences.forEach(pref => {
-            otherProfiles = otherProfiles.filter(pref.filter);
+        strongPreferences.forEach((pref, index) => {
+            const tempProfiles = otherProfiles.filter(pref.filter);
+            if (index === 0 || tempProfiles.length >= 100 - pastOpponentIDs.length + 10) {
+                otherProfiles = tempProfiles;
+                console.log('not completely filtering')
+            }
         });
     } else {
         player.stage.set("strongPreferenceDetected", "False");
         player.stage.set("strongPreferences", []);
     }
-
+    console.log(otherProfiles.map(p => p.profile_ID).length)
     return otherProfiles.map(p => p.profile_ID);
 }
+
+
 
 
 export function getRandomRecommendation(player) {
@@ -333,24 +340,43 @@ const getSiameseBanditRecommendation = (player) => {
 };
 
 export function getNextRecommendation(player) {
+    try {
+        const likedProfiles = player.game.get('likedProfiles') || [];
+        if (likedProfiles.length < 15) {
+            return validateRecommendation(getRandomRecommendation(player));
+        }
 
-    const likedProfiles = player.game.get('likedProfiles') || [];
-    if (likedProfiles.length < 15) {
-        return getRandomRecommendation(player);
-    }
+        const recAlgorithm = player.game.get("recAlgorithm");
+        if (recAlgorithm === 'random') {
+            return validateRecommendation(getRandomRecommendation(player));
+        }
+        if (recAlgorithm === 'elo') {
+            return validateRecommendation(getEloRecommendation(player));
+        }
+        if (recAlgorithm === 'siameseBandit') {
+            return validateRecommendation(getSiameseBanditRecommendation(player));
+        }
 
-    // After 15 recs rec system decides next recommendations depending on treatment group
-    const recAlgorithm = player.game.get("recAlgorithm");
-    if (recAlgorithm === 'random') {
-        return getRandomRecommendation(player);
-    }
-    if (recAlgorithm === 'elo') {
-        return getEloRecommendation(player);
-    }
-    if (recAlgorithm === 'siameseBandit') {
-        return getSiameseBanditRecommendation(player);
+        player.stage.set('error', 'Undefined recommendation algorithm');
+        return [getRandomInt(1, 255), getRandomInt(1, 255)];
+
+    } catch (error) {
+        player.stage.set('error', `Error occurred: ${error.message}`);
+        return [getRandomInt(1, 255), getRandomInt(1, 255)];
     }
 }
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-
+function validateRecommendation(recommendation) {
+    if (Array.isArray(recommendation) &&
+        recommendation.length === 2 &&
+        Number.isInteger(recommendation[0]) &&
+        Number.isInteger(recommendation[1])) {
+        return recommendation;
+    } else {
+        return [getRandomInt(1, 255), getRandomInt(1, 255)];
+    }
+}

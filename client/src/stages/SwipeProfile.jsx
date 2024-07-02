@@ -32,7 +32,7 @@ export function SwipeProfile() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setButtonsEnabled(true);
-        }, 300);
+        }, 3000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -101,8 +101,8 @@ export function SwipeProfile() {
     }
 
     const getAttentionCheck = () => {
-        if (player_round === 15) return "attentionAgeIsSame";
-        if (player_round === 45) return "attentionDifficultyBothFitWell";
+        if (player_round === 15) return "attentionDifficultyBothFitWell";
+        if (player_round === 45) return "attentionAgeIsSame";
         return "None";
     };
 

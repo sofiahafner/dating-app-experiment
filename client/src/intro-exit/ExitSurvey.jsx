@@ -14,7 +14,7 @@ export function ExitSurvey({ next }) {
     event.preventDefault();
     player.game.set("exitSurvey", { feedback });
     next();
-    window.location.href = "https://www.prolific.co/";
+    window.location.href = "https://app.prolific.com/submissions/complete?cc=CYVW2AQO";
   }
 
   return (
@@ -29,7 +29,7 @@ export function ExitSurvey({ next }) {
               Thank you very much for completing the experiment!
             </h3>
             <p>
-              When clicking on "Submit", you will be re-directed to Prolific to claim your reward.
+            <br></br>You're all set! Your Prolific ID provided at the beginning will be used for payment. When you click "Submit," you will be redirected to Prolific to claim your reward.
             </p>
 
             <div className="space-y-8 mt-6">
