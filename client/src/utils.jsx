@@ -1,6 +1,7 @@
 // utils.jsx
 // import peepProfiles from '../data/peep_profiles.json';
 import profiles from '../data/peep_profiles.json';
+import elo_ratings from '../../server/data/elo_ratings.json';
 
 import { Effigy } from '../../client/open-peeps/lib/Effigy.tsx';
 
@@ -23,6 +24,10 @@ export function getAge(profileId) {
 export function getMainHobby(profileId) {
     const profile = findProfileById(profileId);
     return profile ? profile.main_hobby : "Main Hobby not found";
+}
+
+export function getElo(profileId){
+    return elo_ratings.profile[profileId];
 }
 
 export function getHobby1(profileId) {
@@ -188,7 +193,7 @@ export function createProfile(profileId) {
                 />
             </div>
             <div style={styles.textContainer}>
-                <div style={styles.textStyle}>Age: <span style={styles.answerTextStyle}>{age}</span></div>
+                <div style={styles.textStyle}>Age: <span style={styles.answerTextStyle}>{getElo(profileId)}</span></div>
                 <div style={styles.textStyle}>Hobbies: <span style={styles.answerTextStyle}>{hobby1}, {hobby2}</span></div>
                 {/* <div style={styles.textStyle}>Hobbies:</div>
                 <div style={styles.aboutTextStyle}>{hobby1}, {hobby2}</div> */}

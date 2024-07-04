@@ -1,5 +1,8 @@
 import { ClassicListenersCollector } from "@empirica/core/admin/classic";
-import { getRandomRecommendation, getFinalEloRating, getEloRecommendation, getNextRecommendation} from './RecommendationAlgorithms.js';
+import { getNextRecommendation} from './RecommendationAlgorithms.js';
+// import {getFinalEloRating} from './EloRecommendation.js'
+
+
 // import { getEloRecommendation} from './RecommendationAlgorithms.js';
 import fs from 'fs';
 
@@ -91,7 +94,7 @@ Empirica.onStageEnded(({ stage }) => {
     for (const player of players) {
       const chosenProfile = player.game.get("chosenProfile");
       player.game.set("chosenProfile", chosenProfile);
-      player.game.set("finalElo", getFinalEloRating(chosenProfile))
+      // player.game.set("finalElo", getFinalEloRating(chosenProfile))
     }
   }
 });

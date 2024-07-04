@@ -1,6 +1,6 @@
 import profiles from '../data/peep_profiles.json';
 import likesPastRounds from '../data/likesPastRounds.json';
-
+import {getEloRecommendation} from './EloRecommendation.js'
 
 const calculateUserPreferences_Gender = (likedProfiles, dislikedProfiles) => {
     let preferences = { beard: 0, noBeard: 0, shortHair: 0, longHair: 0 };
@@ -66,20 +66,16 @@ export function getBaselineRecommendation(player) {
         player.stage.set("strongPreferenceDetected", "True");
         const detectedPreferences = strongPreferences.map(p => p.key);
         player.stage.set("strongPreferences", detectedPreferences);
-        console.log(detectedPreferences)
-
         strongPreferences.forEach((pref, index) => {
             const tempProfiles = otherProfiles.filter(pref.filter);
             if (index === 0 || tempProfiles.length >= 100 - pastOpponentIDs.length + 10) {
                 otherProfiles = tempProfiles;
-                console.log('not completely filtering')
             }
         });
     } else {
         player.stage.set("strongPreferenceDetected", "False");
         player.stage.set("strongPreferences", []);
     }
-    console.log(otherProfiles.map(p => p.profile_ID).length)
     return otherProfiles.map(p => p.profile_ID);
 }
 
@@ -87,10 +83,6 @@ export function getBaselineRecommendation(player) {
 
 
 export function getRandomRecommendation(player) {
-    // const ownProfileID = player.game.get('chosenProfile');
-    // const likedProfiles = player.game.get('likedProfiles') || [];
-    // const dislikedProfiles = player.game.get('dislikedProfiles') || [];
-
     const recommendations = getBaselineRecommendation(player);
 
     if (recommendations.length <= 2) {
@@ -104,111 +96,7 @@ export function getRandomRecommendation(player) {
     return [randomProfile1, randomProfile2];
 }
 
-const K = 32;
 
-function calculateEloRating(playerRating, opponentRating, outcome) {
-    const expectedScore = 1 / (1 + Math.pow(10, (opponentRating - playerRating) / 400));
-    return playerRating + K * (outcome - expectedScore);
-}
-
-function updateEloRatings(likesPastRounds) {
-    const eloRatings = {};
-
-    likesPastRounds.forEach(round => {
-        const likedProfile = round.likedProfile;
-        const dislikedProfile = round.dislikedProfile;
-        const current_chosenProfileID = round.chosenProfileID;
-
-        if (!(likedProfile in eloRatings)) {
-            eloRatings[likedProfile] = 1000; // Initial Elo rating
-        }
-        if (!(dislikedProfile in eloRatings)) {
-            eloRatings[dislikedProfile] = 1000;
-        }
-        if (!(current_chosenProfileID in eloRatings)) {
-            eloRatings[current_chosenProfileID] = 1000;
-        }
-
-        const likedProfileRating = eloRatings[likedProfile];
-        const dislikedProfileRating = eloRatings[dislikedProfile];
-        const current_chosenProfileID_Rating = eloRatings[current_chosenProfileID];
-
-        const updatedLikedProfileRating = calculateEloRating(current_chosenProfileID_Rating,likedProfileRating, 1); // Liked profile wins
-        const updatedDislikedProfileRating = calculateEloRating(current_chosenProfileID_Rating, dislikedProfileRating, 0); // Disliked profile loses
-
-        eloRatings[likedProfile] = updatedLikedProfileRating;
-        eloRatings[dislikedProfile] = updatedDislikedProfileRating;
-    });
-
-    return eloRatings;
-}
-
-export function getFinalEloRating(ownProfileID) {
-    const eloRatings = {};
-
-    likesPastRounds.forEach(round => {
-        const likedProfile = round.likedProfile;
-        const dislikedProfile = round.dislikedProfile;
-        const current_chosenProfileID = round.chosenProfileID;
-
-        if (!(likedProfile in eloRatings)) {
-            eloRatings[likedProfile] = 1000; // Initial Elo rating
-        }
-        if (!(dislikedProfile in eloRatings)) {
-            eloRatings[dislikedProfile] = 1000;
-        }
-        if (!(current_chosenProfileID in eloRatings)) {
-            eloRatings[current_chosenProfileID] = 1000;
-        }
-
-        const likedProfileRating = eloRatings[likedProfile];
-        const dislikedProfileRating = eloRatings[dislikedProfile];
-        const current_chosenProfileID_Rating = eloRatings[current_chosenProfileID];
-
-        const updatedLikedProfileRating = calculateEloRating(current_chosenProfileID_Rating,likedProfileRating, 1); // Liked profile wins
-        const updatedDislikedProfileRating = calculateEloRating(current_chosenProfileID_Rating, dislikedProfileRating, 0); // Disliked profile loses
-
-        eloRatings[likedProfile] = updatedLikedProfileRating;
-        eloRatings[dislikedProfile] = updatedDislikedProfileRating;
-    });
-
-    return eloRatings[ownProfileID]||1000;
-}
-
-export function getEloRecommendation(player) {
-    const ownProfileID = player.game.get('chosenProfile');
-    const finalElo = player.game.get('finalElo');
-    const likedProfiles = player.game.get('likedProfiles') || [];
-    const dislikedProfiles = player.game.get('dislikedProfiles') || [];
-    const roundsPlayed = player.game.get("roundsPlayed") || 0;
-
-    let currentElo = 1000;
-    const increment = (finalElo - currentElo) / 50;
-    if (roundsPlayed <= 50) {
-        currentElo += increment * roundsPlayed;
-    } else {
-        currentElo = finalElo;
-    }
-
-    const recommendations = getBaselineRecommendation(player);
-
-    if (recommendations.length <= 2) {
-        return recommendations.length > 0 ? recommendations : [1, 2];
-    }
-
-    const eloRatings = updateEloRatings(likesPastRounds);
-
-    recommendations.sort((a, b) => {
-        const ratingA = eloRatings[a] || 1000;
-        const ratingB = eloRatings[b] || 1000;
-        const diffA = Math.abs(ratingA - currentElo);
-        const diffB = Math.abs(ratingB - currentElo);
-        return diffA - diffB;
-    });
-    const topRecommendations = recommendations.slice(0, 2);
-
-    return topRecommendations;
-}
 
 
 // Helper function to calculate the similarity between two profiles
@@ -351,6 +239,7 @@ export function getNextRecommendation(player) {
             return validateRecommendation(getRandomRecommendation(player));
         }
         if (recAlgorithm === 'elo') {
+            console.log('getting elo recommendation')
             return validateRecommendation(getEloRecommendation(player));
         }
         if (recAlgorithm === 'siameseBandit') {
