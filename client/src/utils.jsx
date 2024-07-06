@@ -193,7 +193,7 @@ export function createProfile(profileId) {
                 />
             </div>
             <div style={styles.textContainer}>
-                <div style={styles.textStyle}>Age: <span style={styles.answerTextStyle}>{getElo(profileId)}</span></div>
+                <div style={styles.textStyle}>Age: <span style={styles.answerTextStyle}>{age}</span></div>
                 <div style={styles.textStyle}>Hobbies: <span style={styles.answerTextStyle}>{hobby1}, {hobby2}</span></div>
                 {/* <div style={styles.textStyle}>Hobbies:</div>
                 <div style={styles.aboutTextStyle}>{hobby1}, {hobby2}</div> */}
