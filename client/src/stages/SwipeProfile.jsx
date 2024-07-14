@@ -32,7 +32,7 @@ export function SwipeProfile() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setButtonsEnabled(true);
-        }, 300);
+        }, 3000);
 
         return () => clearTimeout(timer);
     }, []);
