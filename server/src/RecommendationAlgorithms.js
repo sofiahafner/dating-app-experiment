@@ -2,6 +2,7 @@ import profiles from '../data/peep_profiles.json';
 import likesPastRounds from '../data/likesPastRounds.json';
 import {getEloRecommendation} from './EloRecommendation.js'
 import {getSiameseBanditRecommendation} from './SiameseBanditRecommendation.js'
+import {getEuclideanRecommendation} from './EuclideanRecommendation.js'
 
 const calculateUserPreferences_Gender = (likedProfiles, dislikedProfiles) => {
     let preferences = { beard: 0, noBeard: 0, shortHair: 0, longHair: 0 };
@@ -120,6 +121,10 @@ export function getNextRecommendation(player) {
         }
         if (recAlgorithm === 'siameseBandit') {
             return validateRecommendation(getSiameseBanditRecommendation(player));
+        }
+
+        if (recAlgorithm === 'euclidean') {
+            return validateRecommendation(getEuclideanRecommendation(player));
         }
 
         player.stage.set('error', 'Undefined recommendation algorithm');

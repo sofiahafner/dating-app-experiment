@@ -19,6 +19,7 @@ factors:
       - value: random
       - value: elo
       - value: siameseBandit
+      - value: euclidean
 treatments:
   - desc: "Control with Random Recommendations"
     factors:
@@ -38,3 +39,9 @@ treatments:
       numSwipes : 50
       recAlgorithm : siameseBandit
     name: SiameseBandit
+  - desc: "Treatment with Euclidean Recommendations"
+    factors:
+      playerCount: 1
+      numSwipes : 50
+      recAlgorithm : euclidean
+    name: Euclidean

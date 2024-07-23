@@ -3,6 +3,39 @@ import character_traits_simplified from '../data/character_traits_simplified.jso
 import character_preferences from '../data/character_preferences.json';
 import { getBaselineRecommendation } from './RecommendationAlgorithms.js';
 
+// export function buildPreferenceDictionary(player) {
+//     const likedProfiles = player.game.get('likedProfiles') || [];
+//     const dislikedProfiles = player.game.get('dislikedProfiles') || [];
+
+//     const features = [
+//         'young', 'hair_short', 'skin_dark', 'has_facial_hair', 'has_accessories', 'job_type_higher_ed', 
+//         'face_positive', "main_hobby_Arts", "main_hobby_Music", "main_hobby_Sport", "main_hobby_Travel"
+//     ];
+
+//     let preferences = {};
+
+//     features.forEach(feature => {
+//         preferences[feature] = 0;
+//     });
+
+//     likedProfiles.forEach((likedProfile, index) => {
+//         if (index < dislikedProfiles.length) {
+//             const likedFeatures = character_traits_simplified[likedProfile];
+//             const dislikedFeatures = character_traits_simplified[dislikedProfiles[index]];
+
+//             features.forEach(feature => {
+//                 if (likedFeatures[feature] && !dislikedFeatures[feature]) {
+//                     preferences[feature] += 1;
+//                 } else if (!likedFeatures[feature] && dislikedFeatures[feature]) {
+//                     preferences[feature] -= 1;
+//                 }
+//             });
+//         }
+//     });
+
+//     return preferences;
+// }
+
 
 export function buildPreferenceDictionary(player) {
     const likedProfiles = player.game.get('likedProfiles') || [];
@@ -68,48 +101,43 @@ export function buildPreferenceDictionary(player) {
     return normalizedPreferences;
 }
 
+// function euclideanDistance(vector1, vector2) {
+//     console.log(vector1)
+//     console.log(vector2)
+//     return Math.sqrt(Object.keys(vector1).reduce((sum, key) => {
+//         const diff = (vector1[key] || 0) - (vector2[key] || 0);
+//         return sum + (diff * diff);
+//     }, 0));
+// }
 
+function euclideanDistance(vector1, vector2) {
+    console.log('Vector 1:', vector1);
+    console.log('Vector 2:', vector2);
 
-function upperConfidenceInterval(mean, variance, sampleSize) {
-    if (sampleSize === 0) return mean;
-    const z = 1.96;
-    const standardDeviation = Math.sqrt(variance);
-    const standardError = standardDeviation / Math.sqrt(sampleSize);
-    const marginOfError = z * standardError;
-    return mean + marginOfError;
+    return Math.sqrt(Object.keys(vector1).reduce((sum, key) => {
+        const value1 = vector1[key]['mean'] || 0;
+        const value2 = (typeof vector2[key] === 'boolean') ? (vector2[key] ? 100 : -100) : (vector2[key] || 0);
+        const diff = value1 - value2;
+        return sum + (diff * diff);
+    }, 0));
 }
 
-function traitsFitPreference(preferences, traits) {
-    let sumUCI = 0;
-    let sumMean = 0;
-    let count = 0;
-    for (let trait in traits) {
-        if (preferences[trait]) {
-            let mean = preferences[trait].mean;
-            let variance = preferences[trait].variance;
-            let n = preferences[trait].n;
-            let UCI = upperConfidenceInterval(mean, variance, n);
-            sumUCI += UCI;
-            count++;
-            sumMean += mean;
-        }
-    }
-    if (count === 0) return 0;
-    return sumMean / count;
-}
-
-
-function calculateConfidence(preferences1, traits1, preferences2, traits2) {
-    let p1_likes_p2 = traitsFitPreference(preferences1, traits2);
+function calculateReciprocalCompatibility(preferences1, traits1, preferences2, traits2) {
+    // console.log(preferences1)
+    // console.log(preferences2)
+    // console.log(traits1)
+    // console.log(traits2)
+    const distance1 = euclideanDistance(preferences1, traits2);
+    // console.log(distance1)
     if (Object.values(preferences2).every(pref => pref.n === 0)) {
-        return p1_likes_p2;
+        return distance1;
     }
-    let p2_likes_p1 = traitsFitPreference(preferences2, traits1);
-    return (p1_likes_p2 + p2_likes_p1) / 2;
+    const distance2 = euclideanDistance(preferences2, traits1);
+    // console.log(distance2)
+    return (distance1 + distance2)/2;
 }
 
-
-export function getSiameseBanditRecommendation(player) {
+export function getEuclideanRecommendation(player) {
     const roundsPlayed = player.game.get('roundsPlayed') || 0;
     const ownProfileID = player.game.get('chosenProfile');
     let recommendations = getBaselineRecommendation(player);
@@ -117,43 +145,36 @@ export function getSiameseBanditRecommendation(player) {
     const own_preferences = buildPreferenceDictionary(player);
     const own_traits = character_traits_simplified[ownProfileID];
 
-    const confidenceScores = {};
+    const compatibilityScores = {};
     recommendations.forEach(profileID => {
-        confidenceScores[profileID] = calculateConfidence(
+        const profile_preferences = character_preferences[profileID];
+        const profile_traits = character_traits_simplified[profileID];
+        compatibilityScores[profileID] = calculateReciprocalCompatibility(
             own_preferences, 
             own_traits, 
-            character_preferences[profileID], 
-            character_traits_simplified[profileID]
+            profile_preferences, 
+            profile_traits
         );
     });
+    // console.log(compatibilityScores)
 
-    recommendations.sort((a, b) => confidenceScores[b] - confidenceScores[a]);
-    const maxRecommendations = 100 - (roundsPlayed *2);
+    recommendations.sort((a, b) => compatibilityScores[a] - compatibilityScores[b]);
+    const maxRecommendations = 100 - (roundsPlayed * 2);
     recommendations = recommendations.slice(0, maxRecommendations);
-
-    // console.log('Confidence scores of top recommendations:');
-    // recommendations.forEach(profileID => {
-    //     console.log(`Profile ID: ${profileID}, Confidence Score: ${confidenceScores[profileID]}`);
-    // });
-
+    // console.log(recommendations)
     const finalRecommendations = recommendations.slice(-2);
 
-    // console.log(finalRecommendations);
-
-    // console.log('own_preferences')
-    // console.log(own_preferences)
-
     if (finalRecommendations.length >= 2) {
-        const matchProbability_p1 = confidenceScores[finalRecommendations[0]];
-        const matchProbability_p2 = confidenceScores[finalRecommendations[1]];
+        const matchProbability_p1 = compatibilityScores[finalRecommendations[0]];
+        const matchProbability_p2 = compatibilityScores[finalRecommendations[1]];
 
         player.stage.set("matchProbability_p1", matchProbability_p1);
         player.stage.set("matchProbability_p2", matchProbability_p2);
 
-        console.log('matchProbability_p1');
-        console.log(matchProbability_p1);
-        console.log('matchProbability_p2');
-        console.log(matchProbability_p2);
+        // console.log('matchProbability_p1');
+        // console.log(matchProbability_p1);
+        // console.log('matchProbability_p2');
+        // console.log(matchProbability_p2);
     }
 
     return finalRecommendations;
